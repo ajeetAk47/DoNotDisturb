@@ -176,4 +176,25 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG,"OnResume");
+        if (isHelperServiceRunning()) {
+            editor = sharedPreferences.edit();
+            editor.putBoolean("foregroundServiceStateUserPreference", true);
+            editor.apply();
+            statusInfoActiveTextView.setVisibility(View.VISIBLE);
+            statusInfoInactiveTextView.setVisibility(View.INVISIBLE);
+            serviceIconSwitch.setChecked(IconSwitch.Checked.RIGHT);
+        } else {
+            editor = sharedPreferences.edit();
+            editor.putBoolean("foregroundServiceStateUserPreference", false);
+            editor.apply();
+            statusInfoActiveTextView.setVisibility(View.INVISIBLE);
+            statusInfoInactiveTextView.setVisibility(View.VISIBLE);
+            serviceIconSwitch.setChecked(IconSwitch.Checked.LEFT);
+        }
+    }
 }

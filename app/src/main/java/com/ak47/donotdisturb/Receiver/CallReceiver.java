@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,6 +17,8 @@ import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.Service.RingtonePlayingService;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CallReceiver extends BroadcastReceiver {
     String TAG = "Logging - CallReceiver ";
@@ -38,16 +41,18 @@ public class CallReceiver extends BroadcastReceiver {
     private void onCallStateChanged(Context context, int state, String number) {
         AudioManager myAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         String mode= PreferenceManager.getDefaultSharedPreferences(context).getString("mode_preference","Silent");
+        SharedPreferences sharedPreferences = context.getSharedPreferences("initial_setup", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         if (state == TelephonyManager.CALL_STATE_RINGING && checkExistenceInDataBase(number,context))
         {
 
             Log.e(TAG,"Playing");
-
             if(mode.equals("Do Not Disturb"))
             {
                 Log.e(TAG,"Test");
                 try
                 {
+                    editor.putBoolean("Ringing_mode",false).apply();
                     Intent startIntent = new Intent(context, RingtonePlayingService.class);
                     Uri ringtoneUri=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                     startIntent.putExtra("ringtone-uri", ringtoneUri.toString());
@@ -59,6 +64,7 @@ public class CallReceiver extends BroadcastReceiver {
             else if(mode.equals("Silent"))
             {
                 //Silent  Mode to Normal During Calls
+                editor.putBoolean("Ringing_mode",false).apply();
                 myAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
 
@@ -67,18 +73,23 @@ public class CallReceiver extends BroadcastReceiver {
                     if(mode.equals("Do Not Disturb"))
                     {
                         //Do Not  Disturb Mode
+
                         Intent stopIntent = new Intent(context, RingtonePlayingService.class);
                         context.stopService(stopIntent);
                        myAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        editor.putBoolean("Ringing_mode",true).apply();
 
 
                     }
                     else if(mode.equals("Silent"))
                     {
                         //Silent  Mode
+
                         myAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                        editor.putBoolean("Ringing_mode",true).apply();
                     }
         }
+
     }
 
     private boolean checkExistenceInDataBase(String number, Context context)

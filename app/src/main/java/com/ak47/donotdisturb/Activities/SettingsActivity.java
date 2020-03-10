@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-
 import android.widget.ImageView;
-
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-
 import com.ak47.donotdisturb.R;
 import com.ak47.donotdisturb.Fragment.AddDialogFragment;
+import com.ak47.donotdisturb.Service.HelperForegroundService;
 
 public class SettingsActivity extends AppCompatActivity {
     private ImageView linkedInLinkImageView, githubLinkImageView;
@@ -73,14 +71,30 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+        private Intent helperForegroundServiceIntent;
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
+            helperForegroundServiceIntent = new Intent(getContext(), HelperForegroundService.class);
+
             Preference contact = findPreference("manage_contacts");
+            ListPreference modePreference = findPreference("mode_preference");
+
             contact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     AddDialogFragment.display(getActivity().getSupportFragmentManager());
+                    return false;
+                }
+            });
+
+            modePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    getContext().stopService(helperForegroundServiceIntent);
+
                     return false;
                 }
             });
