@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ak47.donotdisturb">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".Application.App"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".Activities.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".Activities.SplashScreenActivity">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.InitialSetupActivity" />
+        <activity android:name=".Activities.MainActivity" />
+
+        <service
+            android:name=".Service.HelperForegroundService"
+            android:enabled="true"
+            android:label="Helper Foreground Service"
+            android:stopWithTask="false" />
+        <service
+            android:name=".Service.StartHelperForegroundTileService"
+            android:icon="@drawable/ic_check"
+            android:label="Custom DND"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="false" />
+        </service>
+
+        <service
+            android:name=".Service.RingtonePlayingService"
+            android:label="Ringtone Playing Service"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".Receiver.CallReceiver" />
+        <receiver android:name=".Receiver.RingerModeStateChangeReceiver" />
+    </application>
+
+</manifest>

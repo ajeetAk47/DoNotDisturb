@@ -1,0 +1,8 @@
+<resources>
+
+    <string-array name="mode_values">
+        <item>@string/silent_mode</item>
+        <item>@string/do_not_disturb_mode</item>
+    </string-array>
+
+</resources>

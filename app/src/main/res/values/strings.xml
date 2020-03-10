@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Don\'t bother</string>
+    <string name="developer_name">Developed By Ak47</string>
+    <string name="version">Version 1.0 Beta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="active">Running</string>
+    <string name="status">Status:</string>
+    <string name="inactive">Stopped</string>
+
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello User!</string>
+    <string name="slide_1_desc">Are you looking for Something which helps you to notify particular Call during Do Not Disturb Mode</string>
+
+    <string name="slide_2_title">Customize Do Not Disturb</string>
+    <string name="slide_2_desc">You can add particular number to get Alert during Do Not Disturb Mode  </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="notification_header">Sound</string>
+    
+    <string name="do_not_disturb_mode">Do Not Disturb</string>
+    <string name="silent_mode">Silent</string>
+    <string name="mode_summary">To See Changes you have to change Status to Running. If Status is already Running then stop and again change Status to Running </string>
+
+
+    <string name="linkedin_url">LinkedIn Url</string>
+    <string name="twitter_url">Twitter Url</string>
+    <string name="facebook_url">Facebook Url</string>
+    <string name="instagram_url">Instagram Url</string>
+    <string name="github_url">Github Url</string>
+    <string name="no_contact_found">No Contact Found</string>
+
+    <!--    <string name="slide_3_title">Great Discounts</string>-->
+    <!--    <string name="slide_3_desc">Best discounts on every single service we offer!</string>-->
+
+    <!--    <string name="slide_4_title">World Travel</string>-->
+    <!--    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>-->
+
+    <!--    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>-->
+    <!--    <string name="play_again">Play Again</string>-->
+
+</resources>
