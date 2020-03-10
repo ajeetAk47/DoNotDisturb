@@ -52,7 +52,8 @@ public class InitialSetupActivity extends AppCompatActivity {
         layouts = new int[]
                 {
                 R.layout.welcome_slide1,
-                R.layout.welcome_slide2
+                R.layout.welcome_slide2,
+                R.layout.welcome_slide3
                 };
 
 
