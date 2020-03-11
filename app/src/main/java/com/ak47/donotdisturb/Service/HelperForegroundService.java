@@ -66,7 +66,7 @@ public class HelperForegroundService extends Service {
                 .setContentIntent(mainActivityPendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(status+" Mode")
-                        .setSummaryText("Status - Running")
+                        .setSummaryText("Running")
                 ).setColor(ContextCompat.getColor(this,R.color.colorAccent))
                 .setVisibility(Integer.parseInt(visibility))
                 .build();
