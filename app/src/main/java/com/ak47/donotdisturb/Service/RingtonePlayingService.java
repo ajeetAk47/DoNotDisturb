@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,7 +12,7 @@ import android.util.Log;
 
 public class RingtonePlayingService extends Service {
     private Ringtone ringtone;
-    AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    //    AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     String TAG = "Logging - RingtonePlayingService ";
 
 

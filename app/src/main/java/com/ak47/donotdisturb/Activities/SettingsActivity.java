@@ -6,13 +6,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import com.ak47.donotdisturb.R;
+
 import com.ak47.donotdisturb.Fragment.AddDialogFragment;
+import com.ak47.donotdisturb.R;
 import com.ak47.donotdisturb.Service.HelperForegroundService;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -95,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     getContext().stopService(helperForegroundServiceIntent);
 
-                    return false;
+                    return true;
                 }
             });
 
