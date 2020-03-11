@@ -5,4 +5,13 @@
         <item>@string/do_not_disturb_mode</item>
     </string-array>
 
+    <string-array name="visibility_entries">
+        <item>Always</item>
+        <item>Hidden In Lockscreen</item>
+    </string-array>
+    <string-array name="visibility_values">
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
 </resources>

@@ -17,9 +17,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
-import com.ak47.donotdisturb.Receiver.CallReceiver;
 import com.ak47.donotdisturb.Activities.MainActivity;
 import com.ak47.donotdisturb.R;
+import com.ak47.donotdisturb.Receiver.CallReceiver;
 import com.ak47.donotdisturb.Receiver.RingerModeStateChangeReceiver;
 
 public class HelperForegroundService extends Service {
@@ -52,6 +52,7 @@ public class HelperForegroundService extends Service {
         Log.e(TAG, "onStartCommand: " + "service started " + startId);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         String status=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference","Silent");
+        String visibility = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("notification_visibility", "0");
         Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent mainActivityPendingIntent = PendingIntent.getActivity(
                 getApplicationContext(),
@@ -64,9 +65,10 @@ public class HelperForegroundService extends Service {
                 .setSmallIcon(R.drawable.ic_check)
                 .setContentIntent(mainActivityPendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .setBigContentTitle("Status - Running")
                         .bigText(status+" Mode")
+                        .setSummaryText("Status - Running")
                 ).setColor(ContextCompat.getColor(this,R.color.colorAccent))
+                .setVisibility(Integer.parseInt(visibility))
                 .build();
         IntentFilter intentFilterCallReceiver = new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
         registerReceiver(callReceiver, intentFilterCallReceiver);
