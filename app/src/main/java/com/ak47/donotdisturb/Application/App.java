@@ -9,9 +9,9 @@ import android.os.Build;
 public class App extends Application
 {
     String notificationChannelIdForHelperService = "1000";
-    String notificationChannelNameForHelperService = "Helper Foreground Service Channel";
+    String notificationChannelNameForHelperService = "Tile Change"; //Helper Foreground Service Channel
     String notificationChannelIdForRingerModeReceiver="2000";
-    String notificationChannelNameForRingerModeReceiver="Ringer Mode Receiver Channel";
+    String notificationChannelNameForRingerModeReceiver = "Mode Change"; //Ringer Mode Receiver Channel
     @Override
     public void onCreate()
     {
