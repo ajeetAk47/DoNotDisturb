@@ -13,7 +13,7 @@ import com.ak47.donotdisturb.Model.Contact;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CallDatabaseHandler extends SQLiteOpenHelper {
+public class ContactsDatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contactsManager";
@@ -23,7 +23,7 @@ public class CallDatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_PH_NO = "phone_number";
 
-    public CallDatabaseHandler(@Nullable Context context) {
+    public ContactsDatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

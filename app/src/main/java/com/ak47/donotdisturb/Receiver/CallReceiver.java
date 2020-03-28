@@ -12,7 +12,7 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import com.ak47.donotdisturb.Database.CallDatabaseHandler;
+import com.ak47.donotdisturb.Database.ContactsDatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.Service.RingtonePlayingService;
 
@@ -95,7 +95,7 @@ public class CallReceiver extends BroadcastReceiver {
     private boolean checkExistenceInDataBase(String number, Context context)
     {
    //     Log.e(TAG,"checkExistence");
-        CallDatabaseHandler db = new CallDatabaseHandler(context);
+        ContactsDatabaseHandler db = new ContactsDatabaseHandler(context);
         if(number.contains(" ")){
             number=number.replaceAll(" ","");
         }

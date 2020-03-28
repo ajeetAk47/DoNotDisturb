@@ -25,7 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import com.ak47.donotdisturb.Adapter.ContactListAdapter;
-import com.ak47.donotdisturb.Database.CallDatabaseHandler;
+import com.ak47.donotdisturb.Database.ContactsDatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.R;
 
@@ -71,7 +71,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
         listView = view.findViewById(R.id.contact_list);
         noContact = view.findViewById(R.id.no_contact);
 
-        contactListAdapter = new ContactListAdapter(getContext(), R.layout.activity_listview, contactsArrayList());
+        contactListAdapter = new ContactListAdapter(getContext(), R.layout.activity_listview_contacts, contactsArrayList());
         listView.setAdapter(contactListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     private void deleteByNumberAndUpdateView(int position)
     {
 
-        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
         String phoneNumber=nameList.get(position).getPhoneNumber();
         db.deleteContact(phoneNumber, TABLE_CONTACTS_CALL);
         nameList.remove(position);
@@ -118,7 +118,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
 
 
     private ArrayList<Contact> contactsArrayList() {
-        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
         contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
         if (db.getContactsCount(TABLE_CONTACTS_CALL) == 0) {
             listView.setVisibility(View.GONE);
@@ -188,7 +188,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
 
     private void insertContactInfo(String name, String number) {
         Log.d(TAG,"Inserting .." + number);
-        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
         if (checkExistenceInDataBase(number)) {
             Toast.makeText(getActivity(), "Number Already Exist ", Toast.LENGTH_SHORT).show();
         } else if(number.charAt(0)=='+'){
@@ -217,7 +217,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     private boolean checkExistenceInDataBase(String number) {
-        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
         number = number.replaceAll(" ", "");
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
         for (Contact contactList : contacts) {
