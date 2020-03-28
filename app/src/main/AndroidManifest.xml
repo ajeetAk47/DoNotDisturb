@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".Activities.AboutActivity"></activity>
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -50,12 +50,11 @@
                 android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="false" />
         </service>
-
         <service
             android:name=".Service.RingtonePlayingService"
-            android:label="Ringtone Playing Service"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Ringtone Playing Service" />
 
         <receiver android:name=".Receiver.CallReceiver" />
         <receiver android:name=".Receiver.RingerModeStateChangeReceiver" />

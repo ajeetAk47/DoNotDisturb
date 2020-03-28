@@ -25,7 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import com.ak47.donotdisturb.Adapter.ContactListAdapter;
-import com.ak47.donotdisturb.Database.DatabaseHandler;
+import com.ak47.donotdisturb.Database.CallDatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.R;
 
@@ -33,13 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/* *
- * A simple {@link Fragment} subclass.
- *
- *
- * */
-public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
-    public static final String TAG = "save_data_dialog";
+public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment {
+    public static final String TAG = "Save WhatsApp Contact";
+    private static final String TABLE_CONTACTS_WHATSAPP = "whatsappcontacts";
     private ListView listView;
     private List<Contact> contacts;
     private List<Contact> nameList = new ArrayList<>();
@@ -47,16 +43,17 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
     private Toolbar toolbar;
     private TextView noContact;
 
-    public static AddDialogFragment display(FragmentManager fragmentManager) {
-        AddDialogFragment addDialogFragment = new AddDialogFragment();
+    public static WhatsAppDialogFragment display(FragmentManager fragmentManager) {
+        WhatsAppDialogFragment addDialogFragment = new WhatsAppDialogFragment();
         addDialogFragment.show(fragmentManager, TAG);
         return addDialogFragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(AddDialogFragment.STYLE_NORMAL, R.style.AppTheme_FullScreenDialog);
+        setStyle(CallDialogFragment.STYLE_NORMAL, R.style.AppTheme_FullScreenDialog);
     }
 
     @Override
@@ -94,19 +91,17 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
                         }).show();
             }
         });
-
         return view;
     }
 
-    private void deleteByNumberAndUpdateView(int position)
-    {
+    private void deleteByNumberAndUpdateView(int position) {
 
-        DatabaseHandler db=new DatabaseHandler(getContext());
-        String phoneNumber=nameList.get(position).getPhoneNumber();
-        db.deleteContact(phoneNumber);
+        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        String phoneNumber = nameList.get(position).getPhoneNumber();
+        db.deleteContact(phoneNumber, TABLE_CONTACTS_WHATSAPP);
         nameList.remove(position);
-        Log.e(TAG, "Delete Contact " +phoneNumber);
-        if(db.getContactsCount()==0){
+        Log.e(TAG, "Delete Contact " + phoneNumber);
+        if (db.getContactsCount(TABLE_CONTACTS_WHATSAPP) == 0) {
             listView.setVisibility(View.GONE);
             noContact.setVisibility(View.VISIBLE);
         }
@@ -117,14 +112,14 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
 
 
     private ArrayList<Contact> contactsArrayList() {
-        DatabaseHandler db = new DatabaseHandler(getContext());
-        contacts = db.getAllContacts();
-        if (db.getContactsCount() == 0) {
+        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
+        contacts = db.getAllContacts(TABLE_CONTACTS_WHATSAPP);
+        if (db.getContactsCount(TABLE_CONTACTS_WHATSAPP) == 0) {
             listView.setVisibility(View.GONE);
             noContact.setVisibility(View.VISIBLE);
         }
         for (Contact cn : contacts) {
-            nameList.add(new Contact(cn.getName(), cn.getPhoneNumber()));
+            nameList.add(new Contact(cn.getWord(), cn.getPhoneNumber()));
         }
         return (ArrayList<Contact>) nameList;
     }
@@ -135,10 +130,10 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDialogFragment.this.dismiss();
+                WhatsAppDialogFragment.this.dismiss();
             }
         });
-        toolbar.setTitle("Contacts");
+        toolbar.setTitle("WhatsApp Contacts");
         toolbar.inflateMenu(R.menu.save_data_dialog);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -186,22 +181,21 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     private void insertContactInfo(String name, String number) {
-        Log.d(TAG,"Inserting .." + number);
-        DatabaseHandler db = new DatabaseHandler(getContext());
+        Log.d(TAG, "Inserting .." + number);
+        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
         if (checkExistenceInDataBase(number)) {
             Toast.makeText(getActivity(), "Number Already Exist ", Toast.LENGTH_SHORT).show();
-        } else if(number.charAt(0)=='+'){
+        } else if (number.charAt(0) == '+') {
             number = number.replace(" ", "");
-            db.addContact(new Contact(name, number));
-            if (db.getContactsCount() > 0) {
+            db.addContact(new Contact(name, number), TABLE_CONTACTS_WHATSAPP);
+            if (db.getContactsCount(TABLE_CONTACTS_WHATSAPP) > 0) {
                 listView.setVisibility(View.VISIBLE);
                 noContact.setVisibility(View.GONE);
             }
             nameList.add(new Contact(name, number));
             contactListAdapter.notifyDataSetChanged();
-        }
-        else{
-            Log.e(TAG,"Invalid Format");
+        } else {
+            Log.e(TAG, "Invalid Format");
             new androidx.appcompat.app.AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
                     .setTitle("Alert")
                     .setMessage("Contact number must have proper Country Code Otherwise You Will Not able to Add")
@@ -216,9 +210,9 @@ public class AddDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     private boolean checkExistenceInDataBase(String number) {
-        DatabaseHandler db = new DatabaseHandler(getContext());
+        CallDatabaseHandler db = new CallDatabaseHandler(getContext());
         number = number.replaceAll(" ", "");
-        List<Contact> contacts = db.getAllContacts();
+        List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_WHATSAPP);
         for (Contact contactList : contacts) {
             if (contactList.getPhoneNumber().equals(number)) {
                 return true;

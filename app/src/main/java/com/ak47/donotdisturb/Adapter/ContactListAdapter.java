@@ -1,6 +1,5 @@
 package com.ak47.donotdisturb.Adapter;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.R;
 
@@ -40,7 +40,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact>
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.name.setText(contact.getName());
+        viewHolder.name.setText(contact.getWord());
         viewHolder.number.setText(contact.getPhoneNumber());
 
         return convertView;

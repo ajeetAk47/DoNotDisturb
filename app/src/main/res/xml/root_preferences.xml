@@ -1,27 +1,46 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/notification_header">
+    <PreferenceCategory app:title="@string/manage">
         <ListPreference
             android:defaultValue="@string/silent_mode"
             android:entries="@array/mode_values"
             android:entryValues="@array/mode_values"
             android:key="mode_preference"
             android:summary="@string/mode_summary"
-            android:title="Set Mode"></ListPreference>
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="Manage">
-        <Preference
-            android:key="manage_contacts"
-            android:summary="Add Contacts to Use this App feature"
-            android:title="Contacts" />
+            android:title="Set Mode" />
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/visibility_entries"
             android:entryValues="@array/visibility_values"
-            android:key="notification_visibility"
-            android:title="Set Notification Visibility"></ListPreference>
+            android:key="@string/notificationVisibilityKey"
+            android:title="@string/notificationVisibilityTitle" />
 
     </PreferenceCategory>
+    <PreferenceCategory app:title="@string/callSettings">
+        <Preference
+            android:key="@string/ManageKey"
+            android:summary="@string/manageSummary"
+            android:title="@string/manageTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="WhatsApp Notification">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/whatsAppSwitchKey"
+            android:title="@string/WhatsSwitchTitle" />
+        <Preference
+            android:dependency="@string/whatsAppSwitchKey"
+            android:key="@string/whatAppAddContactKey"
+            android:title="@string/whatsAppAddContactTitle" />
+        <Preference
+            android:dependency="@string/whatsAppSwitchKey"
+            android:key="@string/whatsAppAddWordKey"
+            android:title="@string/WhatsAppAddWordTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            android:key="appAbout"
+            android:title="About"></Preference>
+    </PreferenceCategory>
 </PreferenceScreen>
+

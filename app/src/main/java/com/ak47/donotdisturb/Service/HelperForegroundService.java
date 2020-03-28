@@ -73,8 +73,8 @@ public class HelperForegroundService extends Service {
         IntentFilter intentFilterCallReceiver = new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
         registerReceiver(callReceiver, intentFilterCallReceiver);
         IntentFilter intentFilterRingerModeStateChangeReceiver =new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        registerReceiver(ringerModeStateChangeReceiver,intentFilterRingerModeStateChangeReceiver);
         changeMode();
+        registerReceiver(ringerModeStateChangeReceiver, intentFilterRingerModeStateChangeReceiver);
         startForeground(foregroundServiceID, notification);
         return START_STICKY;
     }

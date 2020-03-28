@@ -9,9 +9,9 @@
         <item>Always</item>
         <item>Hide From Lockscreen</item>
     </string-array>
+
     <string-array name="visibility_values">
         <item>0</item>
         <item>-1</item>
     </string-array>
-
 </resources>

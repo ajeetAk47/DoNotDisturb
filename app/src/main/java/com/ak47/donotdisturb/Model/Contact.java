@@ -30,7 +30,7 @@ public class Contact
         this.id = id;
     }
 
-    public String getName()
+    public String getWord()
     {
         return name;
     }

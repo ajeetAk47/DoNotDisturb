@@ -1,6 +1,5 @@
 package com.ak47.donotdisturb.Receiver;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +9,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
 import androidx.preference.PreferenceManager;
 
-import com.ak47.donotdisturb.Database.DatabaseHandler;
+import com.ak47.donotdisturb.Database.CallDatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.Service.RingtonePlayingService;
 
@@ -22,7 +22,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class CallReceiver extends BroadcastReceiver {
     String TAG = "Logging - CallReceiver ";
-
+    private static final String TABLE_CONTACTS_CALL = "contacts";
     @Override
     public void onReceive(Context context, Intent intent) {
         String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
@@ -95,11 +95,11 @@ public class CallReceiver extends BroadcastReceiver {
     private boolean checkExistenceInDataBase(String number, Context context)
     {
    //     Log.e(TAG,"checkExistence");
-        DatabaseHandler db=new DatabaseHandler(context);
+        CallDatabaseHandler db = new CallDatabaseHandler(context);
         if(number.contains(" ")){
             number=number.replaceAll(" ","");
         }
-        List<Contact> contacts = db.getAllContacts();
+        List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);  // TABLE_CONTACTS_CALL is table name
         for (Contact contactList : contacts)
         {
          //   Log.e(TAG,contactList.getPhoneNumber()+ " "+ number);
@@ -109,5 +109,4 @@ public class CallReceiver extends BroadcastReceiver {
         }
         return false;
     }
-
 }
