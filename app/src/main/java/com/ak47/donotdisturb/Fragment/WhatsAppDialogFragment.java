@@ -67,7 +67,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
         listView = view.findViewById(R.id.contact_list);
         noContact = view.findViewById(R.id.no_contact);
 
-        contactListAdapter = new ContactListAdapter(getContext(), R.layout.activity_listview_contacts, contactsArrayList());
+        contactListAdapter = new ContactListAdapter(getContext(), R.layout.listview_contacts, contactsArrayList());
         listView.setAdapter(contactListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
