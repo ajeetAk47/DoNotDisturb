@@ -35,7 +35,7 @@ import java.util.List;
 
 public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment {
     public static final String TAG = "Save WhatsApp Contact";
-    private static final String TABLE_CONTACTS_WHATSAPP = "whatsappcontacts";
+    private static final String TABLE_CONTACTS_WHATSAPP = "whatsappContacts";
     private ListView listView;
     private List<Contact> contacts;
     private List<Contact> nameList = new ArrayList<>();

@@ -17,7 +17,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contactsManager";
-    private static final String TABLE_CONTACTS = "word";
+    private static final String TABLE_WORDS = "word";
     private static final String KEY_ID = "id";
     private static final String KEY_WORD = "word";
 
@@ -27,7 +27,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_WORDS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_WORD + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
@@ -35,7 +35,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORDS);
 
         // Create tables again
         onCreate(db);
@@ -46,7 +46,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_WORD, word.getWord()); // Word
         // Inserting Row
-        db.insert(TABLE_CONTACTS, null, values);
+        db.insert(TABLE_WORDS, null, values);
         //2nd argument is String containing nullColumnHack
         db.close(); // Closing database connection
 
@@ -55,7 +55,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
     Word getWord(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID,
+        Cursor cursor = db.query(TABLE_WORDS, new String[]{KEY_ID,
                         KEY_WORD}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
@@ -71,7 +71,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
     public List<Word> getAllWords() {
         List<Word> wordList = new ArrayList<Word>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+        String selectQuery = "SELECT  * FROM " + TABLE_WORDS;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -99,13 +99,13 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_WORD, word.getWord());
 
         // updating row
-        return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
+        return db.update(TABLE_WORDS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(word.getId())});
     }
 
     public void deleteWord(Word word) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
+        db.delete(TABLE_WORDS, KEY_ID + " = ?",
                 new String[]{String.valueOf(word.getId())});
         db.close();
     }
@@ -113,7 +113,7 @@ public class WhatsAppWordDatabaseHandler extends SQLiteOpenHelper {
 
     // Getting Words Count
     public int getWordsCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+        String countQuery = "SELECT  * FROM " + TABLE_WORDS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 

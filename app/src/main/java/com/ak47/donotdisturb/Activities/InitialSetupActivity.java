@@ -49,11 +49,10 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         layouts = new int[]
                 {
-                R.layout.welcome_slide1,
-                R.layout.welcome_slide2,
-                R.layout.welcome_slide3
+                        R.layout.welcome_slide1,
+                        R.layout.welcome_slide2,
+                        R.layout.welcome_slide3
                 };
-
 
 
         // adding bottom dots
@@ -118,10 +117,10 @@ public class InitialSetupActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("initial_setup", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("initial_setup", true);
-                    editor.apply();
-                    Intent intent = new Intent(InitialSetupActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+        editor.apply();
+        Intent intent = new Intent(InitialSetupActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {

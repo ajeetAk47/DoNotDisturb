@@ -10,45 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.ak47.donotdisturb.Model.Contact;
+import com.ak47.donotdisturb.Model.Word;
 import com.ak47.donotdisturb.R;
 
 import java.util.List;
 
-public class ContactListAdapter extends ArrayAdapter<Contact> {
+public class WordsListAdapter extends ArrayAdapter<Word> {
     private int listItemLayout;
 
-    public ContactListAdapter(Context addDialogFragment, int listview_contacts, List contactsList) {
-        super(addDialogFragment, listview_contacts, contactsList);
-        listItemLayout = listview_contacts;
+    public WordsListAdapter(Context addDialogFragment, int listview_words, List wordsList) {
+        super(addDialogFragment, listview_words, wordsList);
+        listItemLayout = listview_words;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Contact contact = getItem(position);
+        Word word = getItem(position);
 
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(listItemLayout, parent, false);
-            viewHolder.name = convertView.findViewById(R.id.name);
-            viewHolder.number = convertView.findViewById(R.id.number);
+            viewHolder.word = convertView.findViewById(R.id.words);
             convertView.setTag(viewHolder); // view lookup cache stored in tag
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.name.setText(contact.getWord());
-        viewHolder.number.setText(contact.getPhoneNumber());
-
+        viewHolder.word.setText(word.getWord());
         return convertView;
-
 
     }
 
     private static class ViewHolder {
-        TextView name;
-        TextView number;
+        TextView word;
     }
 }
+

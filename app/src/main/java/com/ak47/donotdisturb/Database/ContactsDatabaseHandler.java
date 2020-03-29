@@ -18,7 +18,7 @@ public class ContactsDatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contactsManager";
     private static final String TABLE_CONTACTS_CALL = "contacts";
-    private static final String TABLE_CONTACTS_WHATSAPP = "whatsappcontacts";
+    private static final String TABLE_CONTACTS_WHATSAPP = "whatsappContacts";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PH_NO = "phone_number";
