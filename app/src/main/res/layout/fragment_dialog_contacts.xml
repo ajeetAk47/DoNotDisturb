@@ -33,13 +33,13 @@
             android:text="@string/no_contact_found"
             android:textColor="@color/colorAccent"
             android:textSize="40sp"
-            android:visibility="gone"></TextView>
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:defaultFocusHighlightEnabled="true"></ListView>
+            android:defaultFocusHighlightEnabled="true" />
 
     </FrameLayout>
 

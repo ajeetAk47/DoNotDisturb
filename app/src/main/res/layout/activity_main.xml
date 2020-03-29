@@ -57,6 +57,15 @@
         app:isw_thumb_color_left="#d50000"
         app:isw_thumb_color_right="#64dd17" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button"
+        android:layout_margin="20dp"
+        android:text="@string/WarningText"
+        android:textAlignment="center"
+
+        android:textColor="@color/colorAccent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
@@ -66,7 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        android:text="Open Setting!"
+        android:text="@string/SettingButton"
         android:textColor="@color/colorAccent" />
 
 

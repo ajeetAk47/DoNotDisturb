@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 
 import com.ak47.donotdisturb.Fragment.CallDialogFragment;
 import com.ak47.donotdisturb.Fragment.WhatsAppDialogFragment;
@@ -48,16 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference whatsAppWord = findPreference("WhatsAppWord_key");
             Preference about = findPreference("appAbout");
             ListPreference modePreference = findPreference("mode_preference");
-
-
-            modePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getContext().stopService(helperForegroundServiceIntent);
-
-                    return true;
-                }
-            });
+            SwitchPreference whatsAppNotification = findPreference("whatsAppNotification");
 
             contact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -89,6 +81,23 @@ public class SettingsActivity extends AppCompatActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     Intent aboutIntent = new Intent(getActivity(), AboutActivity.class);
                     startActivity(aboutIntent);
+                    return true;
+                }
+            });
+
+            modePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    getContext().stopService(helperForegroundServiceIntent);
+
+                    return true;
+                }
+            });
+
+            whatsAppNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    getContext().stopService(helperForegroundServiceIntent);
                     return true;
                 }
             });
