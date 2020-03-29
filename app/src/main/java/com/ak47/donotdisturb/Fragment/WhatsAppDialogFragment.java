@@ -25,7 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import com.ak47.donotdisturb.Adapter.ContactListAdapter;
-import com.ak47.donotdisturb.Database.ContactsDatabaseHandler;
+import com.ak47.donotdisturb.Database.DatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.R;
 
@@ -61,7 +61,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.add_fragment_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_dialog_contacts, container, false);
 
         toolbar = view.findViewById(R.id.toolbar);
         listView = view.findViewById(R.id.contact_list);
@@ -96,7 +96,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
 
     private void deleteByNumberAndUpdateView(int position) {
 
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         String phoneNumber = nameList.get(position).getPhoneNumber();
         db.deleteContact(phoneNumber, TABLE_CONTACTS_WHATSAPP);
         nameList.remove(position);
@@ -112,7 +112,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
 
 
     private ArrayList<Contact> contactsArrayList() {
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         contacts = db.getAllContacts(TABLE_CONTACTS_WHATSAPP);
         if (db.getContactsCount(TABLE_CONTACTS_WHATSAPP) == 0) {
             listView.setVisibility(View.GONE);
@@ -182,7 +182,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
 
     private void insertContactInfo(String name, String number) {
         Log.d(TAG, "Inserting .." + number);
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         if (checkExistenceInDataBase(number)) {
             Toast.makeText(getActivity(), "Number Already Exist ", Toast.LENGTH_SHORT).show();
         } else if (number.charAt(0) == '+') {
@@ -210,7 +210,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
     }
 
     private boolean checkExistenceInDataBase(String number) {
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         number = number.replaceAll(" ", "");
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_WHATSAPP);
         for (Contact contactList : contacts) {

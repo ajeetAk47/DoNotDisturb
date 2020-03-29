@@ -10,7 +10,7 @@
         android:layout_marginLeft="10dp"
         android:hint="Contact Name"
         android:textSize="20sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/number"
@@ -21,7 +21,7 @@
         android:hint="Contact Number"
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold" />
 
     <View style="@style/Divider.Horizontal" />
 </RelativeLayout>

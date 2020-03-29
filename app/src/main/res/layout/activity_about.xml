@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/version"
-            android:textSize="10sp"></TextView>
+            android:textSize="10sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
 
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -35,7 +35,7 @@
     <string name="instagram_url">Instagram Url</string>
     <string name="github_url">Github Url</string>
     <string name="no_contact_found">No Contact Found</string>
-    <string name="no_words_found">No Words Found</string>
+    <string name="no_words_found">No Word Found</string>
 
     <string name="manage">Manage</string>
     <string name="whatsAppSwitchKey">whatsAppNotification</string>
@@ -51,8 +51,6 @@
     <string name="WhatsAppAddWordTitle">Add Words</string>
     <string name="callSettings">Call Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    <string name="slide_4_title">World Travel</string>-->
     <!--    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>-->

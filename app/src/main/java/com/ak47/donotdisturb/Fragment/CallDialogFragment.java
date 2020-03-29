@@ -25,19 +25,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import com.ak47.donotdisturb.Adapter.ContactListAdapter;
-import com.ak47.donotdisturb.Database.ContactsDatabaseHandler;
+import com.ak47.donotdisturb.Database.DatabaseHandler;
 import com.ak47.donotdisturb.Model.Contact;
 import com.ak47.donotdisturb.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/* *
- * A simple {@link Fragment} subclass.
- *
- *
- * */
 public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     public static final String TAG = "Save Call Contact";
     private static final String TABLE_CONTACTS_CALL = "contacts";
@@ -49,9 +43,9 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     private TextView noContact;
 
     public static CallDialogFragment display(FragmentManager fragmentManager) {
-        CallDialogFragment addDialogFragment = new CallDialogFragment();
-        addDialogFragment.show(fragmentManager, TAG);
-        return addDialogFragment;
+        CallDialogFragment callDialogFragment = new CallDialogFragment();
+        callDialogFragment.show(fragmentManager, TAG);
+        return callDialogFragment;
     }
 
     @Override
@@ -65,7 +59,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.add_fragment_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_dialog_contacts, container, false);
 
         toolbar = view.findViewById(R.id.toolbar);
         listView = view.findViewById(R.id.contact_list);
@@ -99,26 +93,23 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
         return view;
     }
 
-    private void deleteByNumberAndUpdateView(int position)
-    {
+    private void deleteByNumberAndUpdateView(int position) {
 
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
-        String phoneNumber=nameList.get(position).getPhoneNumber();
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        String phoneNumber = nameList.get(position).getPhoneNumber();
         db.deleteContact(phoneNumber, TABLE_CONTACTS_CALL);
         nameList.remove(position);
-        Log.e(TAG, "Delete Contact " +phoneNumber);
+        Log.e(TAG, "Delete Contact " + phoneNumber);
         if (db.getContactsCount(TABLE_CONTACTS_CALL) == 0) {
             listView.setVisibility(View.GONE);
             noContact.setVisibility(View.VISIBLE);
         }
         contactListAdapter.notifyDataSetChanged();
-
-
     }
 
 
     private ArrayList<Contact> contactsArrayList() {
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
         if (db.getContactsCount(TABLE_CONTACTS_CALL) == 0) {
             listView.setVisibility(View.GONE);
@@ -187,11 +178,11 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     private void insertContactInfo(String name, String number) {
-        Log.d(TAG,"Inserting .." + number);
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        Log.d(TAG, "Inserting .." + number);
+        DatabaseHandler db = new DatabaseHandler(getContext());
         if (checkExistenceInDataBase(number)) {
             Toast.makeText(getActivity(), "Number Already Exist ", Toast.LENGTH_SHORT).show();
-        } else if(number.charAt(0)=='+'){
+        } else if (number.charAt(0) == '+') {
             number = number.replace(" ", "");
             db.addContact(new Contact(name, number), TABLE_CONTACTS_CALL);
             if (db.getContactsCount(TABLE_CONTACTS_CALL) > 0) {
@@ -200,9 +191,8 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
             }
             nameList.add(new Contact(name, number));
             contactListAdapter.notifyDataSetChanged();
-        }
-        else{
-            Log.e(TAG,"Invalid Format");
+        } else {
+            Log.e(TAG, "Invalid Format");
             new androidx.appcompat.app.AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
                     .setTitle("Alert")
                     .setMessage("Contact number must have proper Country Code Otherwise You Will Not able to Add")
@@ -217,7 +207,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     private boolean checkExistenceInDataBase(String number) {
-        ContactsDatabaseHandler db = new ContactsDatabaseHandler(getContext());
+        DatabaseHandler db = new DatabaseHandler(getContext());
         number = number.replaceAll(" ", "");
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
         for (Contact contactList : contacts) {

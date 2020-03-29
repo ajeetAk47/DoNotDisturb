@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.ak47.donotdisturb.Fragment.CallDialogFragment;
 import com.ak47.donotdisturb.Fragment.WhatsAppDialogFragment;
+import com.ak47.donotdisturb.Fragment.WhatsAppWordDialogFragment;
 import com.ak47.donotdisturb.R;
 import com.ak47.donotdisturb.Service.HelperForegroundService;
 
@@ -44,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference contact = findPreference("manage_contacts");
             Preference whatsAppContact = findPreference("WhatsAppContact_key");
+            Preference whatsAppWord = findPreference("WhatsAppWord_key");
             Preference about = findPreference("appAbout");
             ListPreference modePreference = findPreference("mode_preference");
 
@@ -69,6 +71,14 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     WhatsAppDialogFragment.display(getActivity().getSupportFragmentManager());
+                    return true;
+                }
+            });
+
+            whatsAppWord.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    WhatsAppWordDialogFragment.display(getActivity().getSupportFragmentManager());
                     return true;
                 }
             });

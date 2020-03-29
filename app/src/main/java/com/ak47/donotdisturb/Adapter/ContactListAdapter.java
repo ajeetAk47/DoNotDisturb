@@ -18,8 +18,8 @@ import java.util.List;
 public class ContactListAdapter extends ArrayAdapter<Contact> {
     private int listItemLayout;
 
-    public ContactListAdapter(Context addDialogFragment, int listview_contacts, List contactsList) {
-        super(addDialogFragment, listview_contacts, contactsList);
+    public ContactListAdapter(Context context, int listview_contacts, List contactsList) {
+        super(context, listview_contacts, contactsList);
         listItemLayout = listview_contacts;
     }
 
@@ -43,8 +43,6 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         viewHolder.number.setText(contact.getPhoneNumber());
 
         return convertView;
-
-
     }
 
     private static class ViewHolder {

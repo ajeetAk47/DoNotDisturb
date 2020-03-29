@@ -18,8 +18,8 @@ import java.util.List;
 public class WordsListAdapter extends ArrayAdapter<Word> {
     private int listItemLayout;
 
-    public WordsListAdapter(Context addDialogFragment, int listview_words, List wordsList) {
-        super(addDialogFragment, listview_words, wordsList);
+    public WordsListAdapter(Context context, int listview_words, List wordsList) {
+        super(context, listview_words, wordsList);
         listItemLayout = listview_words;
     }
 
@@ -33,11 +33,12 @@ public class WordsListAdapter extends ArrayAdapter<Word> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(listItemLayout, parent, false);
-            viewHolder.word = convertView.findViewById(R.id.words);
+            viewHolder.word = convertView.findViewById(R.id.word);
             convertView.setTag(viewHolder); // view lookup cache stored in tag
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        assert word != null;
         viewHolder.word.setText(word.getWord());
         return convertView;
 
