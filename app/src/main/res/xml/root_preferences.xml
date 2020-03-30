@@ -35,12 +35,13 @@
         <Preference
             android:dependency="@string/whatsAppSwitchKey"
             android:key="@string/whatsAppAddWordKey"
+            android:summary="@string/WhatsAppWordSummary"
             android:title="@string/WhatsAppAddWordTitle" />
     </PreferenceCategory>
     <PreferenceCategory>
         <Preference
             android:key="appAbout"
-            android:title="About"></Preference>
+            android:title="About" />
     </PreferenceCategory>
 </PreferenceScreen>
 

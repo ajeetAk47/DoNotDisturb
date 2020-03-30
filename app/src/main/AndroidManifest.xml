@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ak47.donotdisturb">
+    package="com.ak47.doNotDisturb">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".Application.App"
+        android:name="com.ak47.doNotDisturb.Application.App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,11 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.AboutActivity"></activity>
+
+        <activity android:name="com.ak47.doNotDisturb.Activities.AboutActivity" />
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name="com.ak47.doNotDisturb.Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".Activities.SplashScreenActivity">
+        <activity android:name="com.ak47.doNotDisturb.Activities.SplashScreenActivity">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -29,16 +30,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.InitialSetupActivity" />
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name="com.ak47.doNotDisturb.Activities.InitialSetupActivity" />
+        <activity android:name="com.ak47.doNotDisturb.Activities.MainActivity" />
 
         <service
-            android:name=".Service.HelperForegroundService"
+            android:name="com.ak47.doNotDisturb.Service.HelperForegroundService"
             android:enabled="true"
             android:label="Helper Foreground Service"
             android:stopWithTask="false" />
         <service
-            android:name=".Service.StartHelperForegroundTileService"
+            android:name="com.ak47.doNotDisturb.Service.StartHelperForegroundTileService"
             android:icon="@drawable/ic_check"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -50,14 +51,23 @@
                 android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="false" />
         </service>
+
         <service
-            android:name=".Service.RingtonePlayingService"
+            android:name="com.ak47.doNotDisturb.Service.CustomNotificationListenerService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.ak47.doNotDisturb.Service.RingtonePlayingService"
             android:enabled="true"
             android:exported="true"
-            android:label="Ringtone Playing Service" />
+            android:label="Ringtone Playing Service"
+            android:permission="TODO" />
 
-        <receiver android:name=".Receiver.CallReceiver" />
-        <receiver android:name=".Receiver.RingerModeStateChangeReceiver" />
+        <receiver android:name="com.ak47.doNotDisturb.Receiver.CallReceiver" />
+        <receiver android:name="com.ak47.doNotDisturb.Receiver.RingerModeStateChangeReceiver" />
     </application>
 
 </manifest>
