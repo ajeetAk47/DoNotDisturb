@@ -2,6 +2,10 @@ package com.ak47.doNotDisturb.Service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
@@ -14,17 +18,20 @@ import com.ak47.doNotDisturb.Database.DatabaseHandler;
 import com.ak47.doNotDisturb.Model.Contact;
 import com.ak47.doNotDisturb.Model.Word;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CustomNotificationListenerService extends NotificationListenerService {
 
     private final String TAG = "CustomNotificationListenerService";
     Context context;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        sharedPreferences = getSharedPreferences("initial_setup", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -34,7 +41,8 @@ public class CustomNotificationListenerService extends NotificationListenerServi
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("whatsAppNotification", false)) {
+        if (sharedPreferences.getBoolean("foregroundServiceStateUserPreference", false)
+                && PreferenceManager.getDefaultSharedPreferences(context).getBoolean("whatsAppNotification", false)) {
             int notificationCode = matchNotificationCode(sbn);
             if (notificationCode != InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE) {
                 Bundle extras = sbn.getNotification().extras;
@@ -54,7 +62,20 @@ public class CustomNotificationListenerService extends NotificationListenerServi
     }
 
     private void playNotificationSound() {
-
+        MediaPlayer mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(context, RingtoneManager
+                    .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+            final AudioManager audioManager = (AudioManager) context
+                    .getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     private boolean checkWord(String msg) {
