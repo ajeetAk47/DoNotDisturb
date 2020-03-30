@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -125,28 +124,28 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (!checkPermission()) {
-            //If Not Granted
-            requestPermission();
-        }
+//        if (!checkPermission()) {
+//            //If Not Granted
+//            requestPermission();
+//        }
 
-        assert notificationManager != null;
-        if (!notificationManager.isNotificationPolicyAccessGranted()) {
-            new AlertDialog.Builder(this, R.style.AlertDialogStyle)
-                    .setTitle("Alert")
-                    .setMessage("Please Allow Notification Policy to Access Your Call States")
-                    .setCancelable(false)
-                    .setPositiveButton("Open Notification Policy", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(
-                                    Settings
-                                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                            startActivity(intent);
-
-                        }
-                    })
-                    .show();
-        }
+//        assert notificationManager != null;
+//        if (!notificationManager.isNotificationPolicyAccessGranted()) {
+//            new AlertDialog.Builder(this, R.style.AlertDialogStyle)
+//                    .setTitle("Alert")
+//                    .setMessage("Please Allow Notification Policy to Access Your Call States")
+//                    .setCancelable(false)
+//                    .setPositiveButton("Open Notification Policy", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Intent intent = new Intent(
+//                                    Settings
+//                                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+//                            startActivity(intent);
+//
+//                        }
+//                    })
+//                    .show();
+//        }
 
         if (!isNotificationServiceEnabled()) {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
@@ -224,17 +223,10 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(R.string.notification_listener_service)
                 .setMessage(R.string.notification_listener_service_explanation)
                 .setCancelable(false)
-                .setPositiveButton(R.string.yes,
+                .setPositiveButton("Enable Notification Access",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
-                            }
-                        })
-                .setNegativeButton(R.string.no,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // If you choose to not enable the notification listener
-                                // the app. will not work as expected
                             }
                         });
         return (alertDialogBuilder.create());
