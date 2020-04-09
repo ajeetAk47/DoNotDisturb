@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Don\'t bother</string>
-    <string name="developer_name">Developed By Ak47</string>
+    <string name="developer_name">Developed By Ajeet Yadav</string>
     <string name="version">v1.1</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="thanks_note">Hope you like this App    ❤️</string>
     <string name="active">Running</string>
     <string name="status">Status:</string>
     <string name="inactive">Stopped</string>
