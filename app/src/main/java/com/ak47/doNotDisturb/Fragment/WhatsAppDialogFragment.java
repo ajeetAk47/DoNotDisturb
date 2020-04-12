@@ -134,7 +134,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
             }
         });
         toolbar.setTitle("WhatsApp Contacts");
-        toolbar.inflateMenu(R.menu.save_data_dialog);
+        toolbar.inflateMenu(R.menu.save_contact);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

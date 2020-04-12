@@ -125,7 +125,7 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
             }
         });
         toolbar.setTitle("Words");
-        toolbar.inflateMenu(R.menu.save_data_dialog);
+        toolbar.inflateMenu(R.menu.save_word);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
