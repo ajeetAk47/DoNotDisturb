@@ -3,5 +3,5 @@ Set Particular Contacts Calls in Ring Mode when Phone is in Silent  or Do Not  D
 
 # Features
   ## - Custom Call  Notification
-  ## - WhatsApp custom Notification (Pending ) 
+  ## - WhatsApp custom Notification
 
