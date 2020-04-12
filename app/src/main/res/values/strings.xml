@@ -53,7 +53,7 @@
     <string name="whatsAppAddWordKey">WhatsAppWord_key</string>
     <string name="WhatsAppAddWordTitle">Add Words</string>
     <string name="callSettings">Call Settings</string>
-    <string name="WarningText">Warning :- After Making change in Setting the Above Switch will Turn Off.You are requested to Again Turn On the above Switch</string>
+    <string name="WarningText">Warning :- After making any change in settings of this app the above Switch will automatically Turn Off.If Not,then your requested to turn Off Above Switch and again turn it On.</string>
     <string name="SettingButton">Open Setting</string>
     <string name="notificationListener">NotificationListener</string>
 

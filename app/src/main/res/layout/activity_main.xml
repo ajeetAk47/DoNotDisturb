@@ -77,6 +77,4 @@
         android:layout_gravity="bottom"
         android:text="@string/SettingButton"
         android:textColor="@color/colorAccent" />
-
-
 </RelativeLayout>
