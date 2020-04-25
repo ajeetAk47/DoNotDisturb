@@ -2,6 +2,13 @@
     <string name="app_name">Don\'t bother</string>
     <string name="developer_name">Developed By Ajeet Yadav</string>
     <string name="version">v1.1</string>
+    <string name="ad_interstitial_id_1">ca-app-pub-9120224455161858/3876123809</string>
+
+    <string name="admob_app_id">ca-app-pub-9120224455161858~3117769423</string>
+
+    <string name="ad_banner_id_1">ca-app-pub-9120224455161858/9435765760</string>
+
+
     <string name="thanks_note">Hope you like this App    ❤️</string>
     <string name="active">Running</string>
     <string name="status">Status:</string>
@@ -58,9 +65,8 @@
     <string name="notificationListener">NotificationListener</string>
 
 
-    <string name="notification_listener_service">Custom Notification Alert</string>
+    <string name="notification_listener_service">Notification Alert</string>
     <string name="notification_listener_service_explanation">For the app to work you need to enable the Notification Access because this App work on Notifications. Enable it now?</string>
     <string name="WhatsAppWordSummary">Case Sensitive</string>
-
-
+    <string name="ads_to_be_shown_here">Ads to be shown here! \nIf you can read this, please feel free to close this! :)</string>
 </resources>

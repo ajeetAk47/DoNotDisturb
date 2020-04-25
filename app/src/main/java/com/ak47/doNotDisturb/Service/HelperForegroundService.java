@@ -16,11 +16,17 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.ak47.doNotDisturb.Activities.MainActivity;
 import com.ak47.doNotDisturb.R;
 import com.ak47.doNotDisturb.Receiver.CallReceiver;
 import com.ak47.doNotDisturb.Receiver.RingerModeStateChangeReceiver;
+import com.ak47.doNotDisturb.Worker.AdLoadAndShowWorker;
+
+import java.util.concurrent.TimeUnit;
 
 public class HelperForegroundService extends Service {
     String TAG = "Logging - HelperForegroundService ";
@@ -43,12 +49,7 @@ public class HelperForegroundService extends Service {
 
         Log.e(TAG, "onCreate: " + "called");
         super.onCreate();
-    }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
-        Log.e(TAG, "onStartCommand: " + "service started " + startId);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         String status=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference","Silent");
         String visibility = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("notification_visibility", "0");
@@ -78,6 +79,17 @@ public class HelperForegroundService extends Service {
 //        IntentFilter intentFilterCustomNotificationListenerService=new IntentFilter("com.ak47.doNotDisturb.Service.CustomNotificationListenerService");
 //        registerReceiver(customNotificationListenerService,intentFilterCustomNotificationListenerService);
         startForeground(foregroundServiceID, notification);
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e(TAG, "onStartCommand: " + "service started " + startId);
+
+        PeriodicWorkRequest periodicAdWork = new PeriodicWorkRequest.Builder(AdLoadAndShowWorker.class, 1, TimeUnit.HOURS, 20, TimeUnit.MINUTES).build();
+        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("periodicAdWorkName", ExistingPeriodicWorkPolicy.KEEP, periodicAdWork);
+
+
         return START_STICKY;
     }
 
@@ -108,6 +120,7 @@ public class HelperForegroundService extends Service {
         try {
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
            // mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+            WorkManager.getInstance(getApplicationContext()).cancelUniqueWork("periodicAdWorkName");
             unregisterReceiver(ringerModeStateChangeReceiver);
             unregisterReceiver(callReceiver);
         } catch (Exception e) {

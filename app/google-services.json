@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "465726991847",
+    "firebase_url": "https://do-not-disturb-b616c.firebaseio.com",
+    "project_id": "do-not-disturb-b616c",
+    "storage_bucket": "do-not-disturb-b616c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465726991847:android:733344745af12980212142",
+        "android_client_info": {
+          "package_name": "com.ak47.donotdisturb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465726991847-bv5mp8ibbqekodsljief8d87ipv179mh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBJK5f7KebEZuIIflWuAKkOIWWUAYkvpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465726991847-bv5mp8ibbqekodsljief8d87ipv179mh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

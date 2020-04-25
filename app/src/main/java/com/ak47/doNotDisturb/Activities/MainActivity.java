@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat;
 
 import com.ak47.doNotDisturb.R;
 import com.ak47.doNotDisturb.Service.HelperForegroundService;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.button.MaterialButton;
 import com.polyak.iconswitch.IconSwitch;
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Intent helperForegroundServiceIntent;
-
+    private AdView bannerAdView;
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private android.app.AlertDialog enableNotificationListenerAlertDialog;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeMobileAdsLoadAndShow();
 
         basicChecking();
         helperForegroundServiceIntent = new Intent(getBaseContext(), HelperForegroundService.class);
@@ -124,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-//        if (!checkPermission()) {
-//            //If Not Granted
-//            requestPermission();
-//        }
+        if (!checkPermission()) {
+            //If Not Granted
+            requestPermission();
+        }
 
 //        assert notificationManager != null;
 //        if (!notificationManager.isNotificationPolicyAccessGranted()) {
@@ -153,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initializeMobileAdsLoadAndShow() {
+        Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
+        bannerAdView = findViewById(R.id.bannerAdView);
+        AdRequest bannerAdRequest = new AdRequest.Builder().build();
+        bannerAdView.loadAd(bannerAdRequest);
+        Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
+
+    }
+
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), READ_CONTACTS);
         int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_PHONE_STATE);
@@ -167,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
 
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0) {
