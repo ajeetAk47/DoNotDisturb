@@ -166,6 +166,8 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
         DatabaseHandler db = new DatabaseHandler(getContext());
         if (checkExistenceInDataBase(word)) {
             Toast.makeText(getActivity(), "Word Already Exist ", Toast.LENGTH_SHORT).show();
+        } else if (word.contentEquals("")) {
+            Toast.makeText(getActivity(), "Empty", Toast.LENGTH_SHORT).show();
         } else {
             word = word.trim();
             db.addWord(new Word(word));
