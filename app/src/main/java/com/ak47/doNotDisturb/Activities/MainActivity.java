@@ -32,17 +32,16 @@ import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+    String TAG = "Logging - MainActivity ";
     private IconSwitch serviceIconSwitch;
     private TextView statusInfoActiveTextView, statusInfoInactiveTextView;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Intent helperForegroundServiceIntent;
     private AdView bannerAdView;
-    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
-    private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private android.app.AlertDialog enableNotificationListenerAlertDialog;
-
-    String TAG = "Logging - MainActivity ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

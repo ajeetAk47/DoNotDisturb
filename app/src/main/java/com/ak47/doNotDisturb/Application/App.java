@@ -9,17 +9,16 @@ import android.os.Build;
 import com.ak47.doNotDisturb.R;
 import com.google.android.gms.ads.MobileAds;
 
-public class App extends Application
-{
+public class App extends Application {
     String notificationChannelIdForHelperService = "1000";
     String notificationChannelNameForHelperService = "Tile Change"; //Helper Foreground Service Channel
-    String notificationChannelIdForRingerModeReceiver="2000";
+    String notificationChannelIdForRingerModeReceiver = "2000";
     String notificationChannelNameForRingerModeReceiver = "Mode Change"; //Ringer Mode Receiver Channel
     String notificationChannelIdForAdsAndService = "3000";
     String notificationChannelNameForAdsAndService = "Support";
+
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         createNotificationChannelForForegroundService();
         createNotificationChannelForRingerModeReceiver();
         initializeMobileSdk();
@@ -31,9 +30,8 @@ public class App extends Application
     }
 
 
-    private void createNotificationChannelForRingerModeReceiver()
-    {
-        NotificationChannel notificationChannel = new NotificationChannel(notificationChannelIdForRingerModeReceiver , notificationChannelNameForRingerModeReceiver, NotificationManager.IMPORTANCE_HIGH);
+    private void createNotificationChannelForRingerModeReceiver() {
+        NotificationChannel notificationChannel = new NotificationChannel(notificationChannelIdForRingerModeReceiver, notificationChannelNameForRingerModeReceiver, NotificationManager.IMPORTANCE_HIGH);
         notificationChannel.enableLights(true);
         notificationChannel.enableVibration(true);
         notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
@@ -41,8 +39,7 @@ public class App extends Application
         notificationManager.createNotificationChannel(notificationChannel);
     }
 
-    private void createNotificationChannelForForegroundService()
-    {
+    private void createNotificationChannelForForegroundService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannelForHelperService = new NotificationChannel(
                     notificationChannelIdForHelperService,

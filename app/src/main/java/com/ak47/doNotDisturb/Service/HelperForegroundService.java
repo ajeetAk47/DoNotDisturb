@@ -32,11 +32,10 @@ public class HelperForegroundService extends Service {
     String TAG = "Logging - HelperForegroundService ";
     String notificationChannelIdForHelperService = "1000";
     int foregroundServiceID = 100;
-    private  AudioManager mAudioManager;
-
     CallReceiver callReceiver = new CallReceiver();
-    RingerModeStateChangeReceiver ringerModeStateChangeReceiver=new RingerModeStateChangeReceiver();
+    RingerModeStateChangeReceiver ringerModeStateChangeReceiver = new RingerModeStateChangeReceiver();
     CustomNotificationListenerService customNotificationListenerService = new CustomNotificationListenerService();
+    private AudioManager mAudioManager;
 
     @Nullable
     @Override
@@ -51,7 +50,7 @@ public class HelperForegroundService extends Service {
         super.onCreate();
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        String status=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference","Silent");
+        String status = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference", "Silent");
         String visibility = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("notification_visibility", "0");
         Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent mainActivityPendingIntent = PendingIntent.getActivity(
@@ -61,19 +60,19 @@ public class HelperForegroundService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        Notification notification = new NotificationCompat.Builder(this,notificationChannelIdForHelperService )
+        Notification notification = new NotificationCompat.Builder(this, notificationChannelIdForHelperService)
                 .setSmallIcon(R.drawable.ic_check)
                 .setContentIntent(mainActivityPendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(status+" Mode")
+                        .bigText(status + " Mode")
                         .setSummaryText("Running")
-                ).setColor(ContextCompat.getColor(this,R.color.colorAccent))
+                ).setColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .setVisibility(Integer.parseInt(visibility))
                 .build();
 
         IntentFilter intentFilterCallReceiver = new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
         registerReceiver(callReceiver, intentFilterCallReceiver);
-        IntentFilter intentFilterRingerModeStateChangeReceiver =new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
+        IntentFilter intentFilterRingerModeStateChangeReceiver = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
         changeMode();
         registerReceiver(ringerModeStateChangeReceiver, intentFilterRingerModeStateChangeReceiver);
 //        IntentFilter intentFilterCustomNotificationListenerService=new IntentFilter("com.ak47.doNotDisturb.Service.CustomNotificationListenerService");
@@ -94,19 +93,14 @@ public class HelperForegroundService extends Service {
     }
 
     @SuppressLint("WrongConstant")
-    private void changeMode()
-    {
-       String mode=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference","Silent");
-        if(mode.equals("Do Not Disturb"))
-        {
+    private void changeMode() {
+        String mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("mode_preference", "Silent");
+        if (mode.equals("Do Not Disturb")) {
             //Do Not  Disturb Mode
 
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
-        }
-
-        else if(mode.equals("Silent"))
-        {
+        } else if (mode.equals("Silent")) {
             //Silent  Mode
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
@@ -119,7 +113,7 @@ public class HelperForegroundService extends Service {
         Log.e(TAG, "onDestroy: " + "called");
         try {
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-           // mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+            // mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
             WorkManager.getInstance(getApplicationContext()).cancelUniqueWork("periodicAdWorkName");
             unregisterReceiver(ringerModeStateChangeReceiver);
             unregisterReceiver(callReceiver);

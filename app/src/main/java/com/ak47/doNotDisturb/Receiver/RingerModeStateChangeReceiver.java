@@ -36,7 +36,7 @@ public class RingerModeStateChangeReceiver extends BroadcastReceiver {
         helperForegroundServiceIntent = new Intent(context, HelperForegroundService.class);
         String mode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode_preference", "Silent");
         SharedPreferences sharedPreferences = context.getSharedPreferences("initial_setup", MODE_PRIVATE);
-        boolean ringMode=sharedPreferences.getBoolean("Ringing_mode",true);
+        boolean ringMode = sharedPreferences.getBoolean("Ringing_mode", true);
         String currentMode;
         switch (audioManager.getRingerMode()) {
             case AudioManager.RINGER_MODE_SILENT:
@@ -60,7 +60,7 @@ public class RingerModeStateChangeReceiver extends BroadcastReceiver {
         }
 
         if (!currentMode.equals(mode) && ringMode) {
-            Log.e(TAG, "Mode Not Equal " +ringMode);
+            Log.e(TAG, "Mode Not Equal " + ringMode);
 
             Intent mainActivityIntent = new Intent(context, MainActivity.class);
             PendingIntent mainActivityPendingIntent = PendingIntent.getActivity(

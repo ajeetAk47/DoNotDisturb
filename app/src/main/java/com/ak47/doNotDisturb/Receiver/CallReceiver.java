@@ -21,8 +21,9 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class CallReceiver extends BroadcastReceiver {
-    String TAG = "Logging - CallReceiver ";
     private static final String TABLE_CONTACTS_CALL = "contacts";
+    String TAG = "Logging - CallReceiver ";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
@@ -40,69 +41,58 @@ public class CallReceiver extends BroadcastReceiver {
 
     private void onCallStateChanged(Context context, int state, String number) {
         AudioManager myAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        String mode= PreferenceManager.getDefaultSharedPreferences(context).getString("mode_preference","Silent");
+        String mode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode_preference", "Silent");
         SharedPreferences sharedPreferences = context.getSharedPreferences("initial_setup", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (state == TelephonyManager.CALL_STATE_RINGING && checkExistenceInDataBase(number,context))
-        {
+        if (state == TelephonyManager.CALL_STATE_RINGING && checkExistenceInDataBase(number, context)) {
 
-            Log.e(TAG,"Playing");
-            if(mode.equals("Do Not Disturb"))
-            {
-                try
-                {
-                    editor.putBoolean("Ringing_mode",false).apply();
+            Log.e(TAG, "Playing");
+            if (mode.equals("Do Not Disturb")) {
+                try {
+                    editor.putBoolean("Ringing_mode", false).apply();
                     Intent startIntent = new Intent(context, RingtonePlayingService.class);
-                    Uri ringtoneUri=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                    Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                     startIntent.putExtra("ringtone-uri", ringtoneUri.toString());
                     context.startService(startIntent);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    }
-            }
-            else if(mode.equals("Silent"))
-            {
+                }
+            } else if (mode.equals("Silent")) {
                 //Silent  Mode to Normal During Calls
-                editor.putBoolean("Ringing_mode",false).apply();
+                editor.putBoolean("Ringing_mode", false).apply();
                 myAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
 
-        }
-        else {
-                    if(mode.equals("Do Not Disturb"))
-                    {
-                        //Do Not  Disturb Mode
+        } else {
+            if (mode.equals("Do Not Disturb")) {
+                //Do Not  Disturb Mode
 
-                        Intent stopIntent = new Intent(context, RingtonePlayingService.class);
-                        context.stopService(stopIntent);
-                       myAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        editor.putBoolean("Ringing_mode",true).apply();
+                Intent stopIntent = new Intent(context, RingtonePlayingService.class);
+                context.stopService(stopIntent);
+                myAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                editor.putBoolean("Ringing_mode", true).apply();
 
 
-                    }
-                    else if(mode.equals("Silent"))
-                    {
-                        //Silent  Mode
+            } else if (mode.equals("Silent")) {
+                //Silent  Mode
 
-                        myAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                        editor.putBoolean("Ringing_mode",true).apply();
-                    }
+                myAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                editor.putBoolean("Ringing_mode", true).apply();
+            }
         }
 
     }
 
-    private boolean checkExistenceInDataBase(String number, Context context)
-    {
-   //     Log.e(TAG,"checkExistence");
+    private boolean checkExistenceInDataBase(String number, Context context) {
+        //     Log.e(TAG,"checkExistence");
         DatabaseHandler db = new DatabaseHandler(context);
-        if(number.contains(" ")){
-            number=number.replaceAll(" ","");
+        if (number.contains(" ")) {
+            number = number.replaceAll(" ", "");
         }
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);  // TABLE_CONTACTS_CALL is table name
-        for (Contact contactList : contacts)
-        {
-         //   Log.e(TAG,contactList.getPhoneNumber()+ " "+ number);
-            if(contactList.getPhoneNumber().equals(number)){
+        for (Contact contactList : contacts) {
+            //   Log.e(TAG,contactList.getPhoneNumber()+ " "+ number);
+            if (contactList.getPhoneNumber().equals(number)) {
                 return true;
             }
         }

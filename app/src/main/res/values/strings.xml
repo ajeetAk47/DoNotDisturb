@@ -15,7 +15,6 @@
     <string name="inactive">Stopped</string>
 
 
-    <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
@@ -40,9 +39,6 @@
 
 
     <string name="linkedIn_url">LinkedIn Url</string>
-    <string name="twitter_url">Twitter Url</string>
-    <string name="facebook_url">Facebook Url</string>
-    <string name="instagram_url">Instagram Url</string>
     <string name="github_url">Github Url</string>
     <string name="no_contact_found">No Contact Found</string>
     <string name="no_words_found">No Word Found</string>
@@ -62,7 +58,6 @@
     <string name="callSettings">Call Settings</string>
     <string name="WarningText">Warning :- After making any change in settings of this app the above Switch will automatically Turn Off.If Not,then your requested to turn Off Above Switch and again turn it On.</string>
     <string name="SettingButton">Open Setting</string>
-    <string name="notificationListener">NotificationListener</string>
 
 
     <string name="notification_listener_service">Notification Alert</string>
