@@ -9,6 +9,7 @@ import android.os.Build;
 import com.ak47.doNotDisturb.R;
 import com.google.android.gms.ads.MobileAds;
 
+
 public class App extends Application {
     String notificationChannelIdForHelperService = "1000";
     String notificationChannelNameForHelperService = "Tile Change"; //Helper Foreground Service Channel
@@ -36,6 +37,7 @@ public class App extends Application {
         notificationChannel.enableVibration(true);
         notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        assert notificationManager != null;
         notificationManager.createNotificationChannel(notificationChannel);
     }
 

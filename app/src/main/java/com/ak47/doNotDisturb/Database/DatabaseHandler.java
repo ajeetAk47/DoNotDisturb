@@ -71,24 +71,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    Contact getContact(int id, String tableName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(tableName, new String[]{KEY_ID,
-                        KEY_NAME, KEY_PH_NO}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
-        // return contact
-        return contact;
-    }
+//    Contact getContact(int id, String tableName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(tableName, new String[]{KEY_ID,
+//                        KEY_NAME, KEY_PH_NO}, KEY_ID + "=?",
+//                new String[]{String.valueOf(id)}, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
+//                cursor.getString(1), cursor.getString(2));
+//        // return contact
+//        return contact;
+//    }
 
     // code to get all contacts in a list view
     public List<Contact> getAllContacts(String tableName) {
-        List<Contact> contactList = new ArrayList<Contact>();
+        List<Contact> contactList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + tableName;
 
@@ -107,29 +107,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         // return contact list
         return contactList;
     }
 
     // code to update the single contact
-    public int updateContact(Contact contact, String tableName) {
-        SQLiteDatabase db = this.getWritableDatabase();
+//    public int updateContact(Contact contact, String tableName) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(KEY_NAME, contact.getName());
+//        values.put(KEY_PH_NO, contact.getPhoneNumber());
+//
+//        // updating row
+//        return db.update(tableName, values, KEY_ID + " = ?",
+//                new String[]{String.valueOf(contact.getId())});
+//    }
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, contact.getName());
-        values.put(KEY_PH_NO, contact.getPhoneNumber());
-
-        // updating row
-        return db.update(tableName, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(contact.getId())});
-    }
-
-    public void deleteContact(Contact contact, String tableName) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(tableName, KEY_ID + " = ?",
-                new String[]{String.valueOf(contact.getId())});
-        db.close();
-    }
+//    public void deleteContact(Contact contact, String tableName) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(tableName, KEY_ID + " = ?",
+//                new String[]{String.valueOf(contact.getId())});
+//        db.close();
+//    }
 
     public void deleteContact(String number, String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -140,12 +141,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting contacts Count
     public int getContactsCount(String tableName) {
+        int count;
         String countQuery = "SELECT  * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
+        count = cursor.getCount();
+        cursor.close();
         // return count
-        return cursor.getCount();
+        return count;
     }
 
     /**
@@ -164,24 +168,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    Word getWord(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_WORDS, new String[]{KEY_ID,
-                        KEY_WORD}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Word word = new Word(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1));
-        // return Word
-        return word;
-    }
+//    Word getWord(int id) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_WORDS, new String[]{KEY_ID,
+//                        KEY_WORD}, KEY_ID + "=?",
+//                new String[]{String.valueOf(id)}, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        Word word = new Word(Integer.parseInt(cursor.getString(0)),
+//                cursor.getString(1));
+//        // return Word
+//        return word;
+//    }
 
     // code to get all contacts in a list view
     public List<Word> getAllWords() {
-        List<Word> wordList = new ArrayList<Word>();
+        List<Word> wordList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_WORDS;
 
@@ -198,29 +202,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 wordList.add(word);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         // return contact list
         return wordList;
     }
 
     // code to update the single contact
-    public int updateWord(Word word) {
-        SQLiteDatabase db = this.getWritableDatabase();
+//    public int updateWord(Word word) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(KEY_WORD, word.getWord());
+//
+//        // updating row
+//        return db.update(TABLE_WORDS, values, KEY_ID + " = ?",
+//                new String[]{String.valueOf(word.getId())});
+//    }
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_WORD, word.getWord());
-
-        // updating row
-        return db.update(TABLE_WORDS, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(word.getId())});
-    }
-
-    public void deleteWord(Word word) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_WORDS, KEY_ID + " = ?",
-                new String[]{String.valueOf(word.getId())});
-        db.close();
-    }
+//    public void deleteWord(Word word) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(TABLE_WORDS, KEY_ID + " = ?",
+//                new String[]{String.valueOf(word.getId())});
+//        db.close();
+//    }
 
     public void deleteWord(String word) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -232,11 +236,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting Words Count
     public int getWordsCount() {
+        int count;
         String countQuery = "SELECT  * FROM " + TABLE_WORDS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
+        count = cursor.getCount();
+        cursor.close();
         // return count
-        return cursor.getCount();
+        return count;
     }
 }

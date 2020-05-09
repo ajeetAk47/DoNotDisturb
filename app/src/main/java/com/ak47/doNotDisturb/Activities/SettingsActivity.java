@@ -51,31 +51,35 @@ public class SettingsActivity extends AppCompatActivity {
             ListPreference modePreference = findPreference("mode_preference");
             SwitchPreference whatsAppNotification = findPreference("whatsAppNotification");
 
+            assert contact != null;
             contact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    CallDialogFragment.display(getActivity().getSupportFragmentManager());
+                    CallDialogFragment.display(requireActivity().getSupportFragmentManager());
                     return true;
                 }
             });
 
+            assert whatsAppContact != null;
             whatsAppContact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    WhatsAppDialogFragment.display(getActivity().getSupportFragmentManager());
+                    WhatsAppDialogFragment.display(requireActivity().getSupportFragmentManager());
                     return true;
                 }
             });
 
+            assert whatsAppWord != null;
             whatsAppWord.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    WhatsAppWordDialogFragment.display(getActivity().getSupportFragmentManager());
+                    WhatsAppWordDialogFragment.display(requireActivity().getSupportFragmentManager());
                     return true;
                 }
             });
 
 
+            assert about != null;
             about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -85,19 +89,21 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
+            assert modePreference != null;
             modePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getContext().stopService(helperForegroundServiceIntent);
+                    requireContext().stopService(helperForegroundServiceIntent);
 
                     return true;
                 }
             });
 
+            assert whatsAppNotification != null;
             whatsAppNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getContext().stopService(helperForegroundServiceIntent);
+                    requireContext().stopService(helperForegroundServiceIntent);
                     return true;
                 }
             });

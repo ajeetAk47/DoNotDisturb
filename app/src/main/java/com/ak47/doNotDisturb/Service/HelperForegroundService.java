@@ -34,7 +34,7 @@ public class HelperForegroundService extends Service {
     int foregroundServiceID = 100;
     CallReceiver callReceiver = new CallReceiver();
     RingerModeStateChangeReceiver ringerModeStateChangeReceiver = new RingerModeStateChangeReceiver();
-    CustomNotificationListenerService customNotificationListenerService = new CustomNotificationListenerService();
+    //    CustomNotificationListenerService customNotificationListenerService = new CustomNotificationListenerService();
     private AudioManager mAudioManager;
 
     @Nullable

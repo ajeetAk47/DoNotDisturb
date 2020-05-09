@@ -30,6 +30,8 @@
             style="bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/mo_re"
+            android:textStyle="bold"
             android:text="@string/no_words_found"
             android:textColor="@color/colorAccent"
             android:textSize="40sp"

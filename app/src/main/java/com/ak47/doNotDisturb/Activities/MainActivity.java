@@ -1,6 +1,7 @@
 package com.ak47.doNotDisturb.Activities;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Intent helperForegroundServiceIntent;
-    private AdView bannerAdView;
-    private android.app.AlertDialog enableNotificationListenerAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         serviceIconSwitch = findViewById(R.id.serviceIconSwitch);
         statusInfoActiveTextView = findViewById(R.id.statusInfoActiveTextView);
         statusInfoInactiveTextView = findViewById(R.id.statusInfoInactiveTextView);
+        ImageView warningImageButton = findViewById(R.id.warning_msg);
 
         if (isHelperServiceRunning()) {
             editor = sharedPreferences.edit();
@@ -102,6 +103,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        warningImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle)
+                        .setTitle("Warning")
+                        .setMessage("After making any change in settings of this app the above Switch will automatically Turn Off. If Not, then your requested to turn Off Above Switch and again turn it On.")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", null)
+                        .show();
+
+            }
+        });
+
+
     }
 
     private boolean isHelperServiceRunning() {
@@ -131,33 +146,15 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
         }
 
-//        assert notificationManager != null;
-//        if (!notificationManager.isNotificationPolicyAccessGranted()) {
-//            new AlertDialog.Builder(this, R.style.AlertDialogStyle)
-//                    .setTitle("Alert")
-//                    .setMessage("Please Allow Notification Policy to Access Your Call States")
-//                    .setCancelable(false)
-//                    .setPositiveButton("Open Notification Policy", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent intent = new Intent(
-//                                    Settings
-//                                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-//                            startActivity(intent);
-//
-//                        }
-//                    })
-//                    .show();
-//        }
-
         if (!isNotificationServiceEnabled()) {
-            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
+            android.app.AlertDialog enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();
         }
     }
 
     private void initializeMobileAdsLoadAndShow() {
         Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
-        bannerAdView = findViewById(R.id.bannerAdView);
+        AdView bannerAdView = findViewById(R.id.bannerAdView);
         AdRequest bannerAdRequest = new AdRequest.Builder().build();
         bannerAdView.loadAd(bannerAdRequest);
         Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");

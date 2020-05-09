@@ -17,6 +17,7 @@ import com.ak47.doNotDisturb.Model.Contact;
 import com.ak47.doNotDisturb.Service.RingtonePlayingService;
 
 import java.util.List;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -26,7 +27,7 @@ public class CallReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
+        String stateStr = Objects.requireNonNull(intent.getExtras()).getString(TelephonyManager.EXTRA_STATE);
         String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         int state = 0;
         if (stateStr.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
@@ -60,6 +61,7 @@ public class CallReceiver extends BroadcastReceiver {
             } else if (mode.equals("Silent")) {
                 //Silent  Mode to Normal During Calls
                 editor.putBoolean("Ringing_mode", false).apply();
+                assert myAudioManager != null;
                 myAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
 
@@ -69,6 +71,7 @@ public class CallReceiver extends BroadcastReceiver {
 
                 Intent stopIntent = new Intent(context, RingtonePlayingService.class);
                 context.stopService(stopIntent);
+                assert myAudioManager != null;
                 myAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 editor.putBoolean("Ringing_mode", true).apply();
 

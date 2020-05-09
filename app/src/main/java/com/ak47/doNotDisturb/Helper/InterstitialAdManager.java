@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.android.gms.ads.InterstitialAd;
 
 public class InterstitialAdManager {
-    private static String TAG = "Logging - InterstitialAdManager";
     // Singleton Class support
     private static InterstitialAdManager interstitialAdManagerSingleton;
     private InterstitialAd interstitialAd;
@@ -15,6 +14,7 @@ public class InterstitialAdManager {
 
     public static InterstitialAdManager getInstance() {
         if (interstitialAdManagerSingleton == null) {
+            String TAG = "Logging - InterstitialAdManager";
             Log.e(TAG, "getInstance: " + "instance is null...");
             interstitialAdManagerSingleton = new InterstitialAdManager();
         }

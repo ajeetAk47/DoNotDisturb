@@ -31,8 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/no_contact_found"
+            android:fontFamily="@font/mo_re"
+            android:textSize="45sp"
             android:textColor="@color/colorAccent"
-            android:textSize="40sp"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <ListView

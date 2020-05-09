@@ -24,20 +24,19 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class RingerModeStateChangeReceiver extends BroadcastReceiver {
     String TAG = " Logging - RingerModeStateChangeReceiver";
-    String channel_id = "RingingId", channel_name = "RingingName";
     String notificationChannelIdForRingerModeReceiver = "2000";
-    private Intent helperForegroundServiceIntent;
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        helperForegroundServiceIntent = new Intent(context, HelperForegroundService.class);
+        Intent helperForegroundServiceIntent = new Intent(context, HelperForegroundService.class);
         String mode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode_preference", "Silent");
         SharedPreferences sharedPreferences = context.getSharedPreferences("initial_setup", MODE_PRIVATE);
         boolean ringMode = sharedPreferences.getBoolean("Ringing_mode", true);
         String currentMode;
+        assert audioManager != null;
         switch (audioManager.getRingerMode()) {
             case AudioManager.RINGER_MODE_SILENT:
                 Log.i("Do Not Disturb", "Silent mode");

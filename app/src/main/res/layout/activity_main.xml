@@ -13,6 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:text="@string/status"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="24sp" />
 
     <TextView
@@ -21,10 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/statusTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:text="@string/active"
         android:textAllCaps="true"
-        android:textColor="#64dd17"
+        android:textColor="@color/customGreen"
         android:textSize="48sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -38,7 +39,7 @@
         android:layout_marginTop="18dp"
         android:text="@string/inactive"
         android:textAllCaps="true"
-        android:textColor="#d50000"
+        android:textColor="@color/customRed"
         android:textSize="48sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -52,30 +53,21 @@
         app:isw_icon_left="@drawable/ic_sad"
         app:isw_icon_right="@drawable/ic_smile"
         app:isw_icon_size="40dp"
-        app:isw_inactive_tint_icon_left="#d50000"
-        app:isw_inactive_tint_icon_right="#64dd17"
-        app:isw_thumb_color_left="#d50000"
-        app:isw_thumb_color_right="#64dd17" />
+        app:isw_inactive_tint_icon_left="@color/customRed"
+        app:isw_inactive_tint_icon_right="@color/customGreen"
+        app:isw_thumb_color_left="@color/customRed"
+        app:isw_thumb_color_right="@color/customGreen" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/bannerAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/warning_msg"
+        android:layout_above="@id/button"
+        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/ad_banner_id_1" />
 
-    <TextView
-        android:id="@+id/warning_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
-        android:layout_margin="20dp"
-        android:text="@string/WarningText"
-        android:textAlignment="center"
-
-        android:textColor="@color/colorAccent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
@@ -86,5 +78,18 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
         android:text="@string/SettingButton"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        tools:ignore="RelativeOverlap" />
+
+    <ImageView
+        android:id="@+id/warning_msg"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/WarningText"
+        android:tint="#FFAB00"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 </RelativeLayout>

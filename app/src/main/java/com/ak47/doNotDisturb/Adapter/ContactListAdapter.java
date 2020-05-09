@@ -18,9 +18,9 @@ import java.util.List;
 public class ContactListAdapter extends ArrayAdapter<Contact> {
     private int listItemLayout;
 
-    public ContactListAdapter(Context context, int listview_contacts, List contactsList) {
-        super(context, listview_contacts, contactsList);
-        listItemLayout = listview_contacts;
+    public ContactListAdapter(Context context, int listViewContacts, List<Contact> contactsList) {
+        super(context, listViewContacts, contactsList);
+        listItemLayout = listViewContacts;
     }
 
     @NonNull

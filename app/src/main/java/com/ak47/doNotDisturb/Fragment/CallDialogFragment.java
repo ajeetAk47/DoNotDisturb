@@ -1,8 +1,6 @@
 package com.ak47.doNotDisturb.Fragment;
 
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,16 +35,14 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     public static final String TAG = "Save Call Contact";
     private static final String TABLE_CONTACTS_CALL = "contacts";
     private ListView listView;
-    private List<Contact> contacts;
     private List<Contact> nameList = new ArrayList<>();
     private ContactListAdapter contactListAdapter;
     private Toolbar toolbar;
     private TextView noContact;
 
-    public static CallDialogFragment display(FragmentManager fragmentManager) {
+    public static void display(FragmentManager fragmentManager) {
         CallDialogFragment callDialogFragment = new CallDialogFragment();
         callDialogFragment.show(fragmentManager, TAG);
-        return callDialogFragment;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
@@ -72,7 +68,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 //                Contact contact = contacts.get(position);
-                new androidx.appcompat.app.AlertDialog.Builder(Objects.requireNonNull(getContext()), R.style.AlertDialogStyle)
+                new androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
                         .setTitle("Confirm")
                         .setMessage("Do you want to Delete this Contact?")
                         .setCancelable(false)
@@ -111,7 +107,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
 
     private ArrayList<Contact> contactsArrayList() {
         DatabaseHandler db = new DatabaseHandler(getContext());
-        contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
+        List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);
         if (db.getContactsCount(TABLE_CONTACTS_CALL) == 0) {
             listView.setVisibility(View.GONE);
             noContact.setVisibility(View.VISIBLE);
@@ -151,7 +147,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.AppTheme_Slide);
         }
     }
@@ -161,10 +157,13 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
 
         Cursor cursor;
         try {
-            String phoneNo = null;
-            String name = null;
+            String phoneNo;
+            String name;
+            assert data != null;
             Uri uri = data.getData();
-            cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            assert uri != null;
+            cursor = requireActivity().getContentResolver().query(uri, null, null, null, null);
+            assert cursor != null;
             cursor.moveToFirst();
             int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
             int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
@@ -172,6 +171,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
             phoneNo = cursor.getString(phoneIndex);
             Log.e(TAG, "Got a result: " + name + " " + phoneNo);
             insertContactInfo(name, phoneNo);
+            cursor.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,7 +194,7 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
             contactListAdapter.notifyDataSetChanged();
         } else {
             Log.e(TAG, "Invalid Format");
-            new androidx.appcompat.app.AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
                     .setTitle("Alert")
                     .setMessage("Contact number must have proper Country Code Otherwise You Will Not able to Add")
                     .setCancelable(false)
@@ -217,28 +217,6 @@ public class CallDialogFragment extends androidx.fragment.app.DialogFragment {
             }
         }
         return false;
-    }
-
-    public String getContactDisplayNameByNumber(String number, Context context) {
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-        String name = "";
-
-        ContentResolver contentResolver = context.getContentResolver();
-        Cursor contactLookup = contentResolver.query(uri, null, null, null, null);
-
-        try {
-            if (contactLookup != null && contactLookup.getCount() > 0) {
-                contactLookup.moveToNext();
-                name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-            } else {
-                name = "Unknown number";
-            }
-        } finally {
-            if (contactLookup != null) {
-                contactLookup.close();
-            }
-        }
-        return name;
     }
 
 }

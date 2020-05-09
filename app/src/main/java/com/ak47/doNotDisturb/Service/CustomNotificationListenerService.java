@@ -20,6 +20,7 @@ import com.ak47.doNotDisturb.Model.Word;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomNotificationListenerService extends NotificationListenerService {
 
@@ -47,7 +48,7 @@ public class CustomNotificationListenerService extends NotificationListenerServi
             if (notificationCode != InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE) {
                 Bundle extras = sbn.getNotification().extras;
                 String contactName = extras.getString("android.title");
-                String msg = extras.getCharSequence("android.text").toString();
+                String msg = Objects.requireNonNull(extras.getCharSequence("android.text")).toString();
 
 //            Log.e(TAG,"Package "+sbn.getPackageName());
 
@@ -68,13 +69,14 @@ public class CustomNotificationListenerService extends NotificationListenerServi
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
             final AudioManager audioManager = (AudioManager) context
                     .getSystemService(Context.AUDIO_SERVICE);
+            assert audioManager != null;
             if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
                 mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mMediaPlayer.prepare();
                 mMediaPlayer.start();
             }
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, Objects.requireNonNull(e.getMessage()));
         }
     }
 

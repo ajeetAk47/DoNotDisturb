@@ -18,9 +18,9 @@ import java.util.List;
 public class WordsListAdapter extends ArrayAdapter<Word> {
     private int listItemLayout;
 
-    public WordsListAdapter(Context context, int listview_words, List wordsList) {
-        super(context, listview_words, wordsList);
-        listItemLayout = listview_words;
+    public WordsListAdapter(Context context, int listViewWords, List<Word> wordsList) {
+        super(context, listViewWords, wordsList);
+        listItemLayout = listViewWords;
     }
 
     @NonNull

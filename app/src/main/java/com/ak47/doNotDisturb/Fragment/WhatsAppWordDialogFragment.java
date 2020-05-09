@@ -26,20 +26,19 @@ import com.ak47.doNotDisturb.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFragment {
     public static final String TAG = "Save Words";
     private ListView listView;
-    private List<Word> word;
     private List<Word> wordList = new ArrayList<>();
     private WordsListAdapter wordsListAdapter;
     private Toolbar toolbar;
     private TextView noWords;
 
-    public static WhatsAppWordDialogFragment display(FragmentManager fragmentManager) {
+    public static void display(FragmentManager fragmentManager) {
         WhatsAppWordDialogFragment whatsAppWordDialogFragment = new WhatsAppWordDialogFragment();
         whatsAppWordDialogFragment.show(fragmentManager, TAG);
-        return whatsAppWordDialogFragment;
     }
 
     @Override
@@ -65,7 +64,7 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 //                Contact contact = contacts.get(position);
-                new androidx.appcompat.app.AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
+                new androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
                         .setTitle("Confirm")
                         .setMessage("Do you want to Delete this Word?")
                         .setCancelable(false)
@@ -103,7 +102,7 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
 
     private ArrayList<Word> wordsArrayList() {
         DatabaseHandler db = new DatabaseHandler(getContext());
-        word = db.getAllWords();
+        List<Word> word = db.getAllWords();
         if (db.getWordsCount() == 0) {
             listView.setVisibility(View.GONE);
             noWords.setVisibility(View.VISIBLE);
@@ -132,7 +131,7 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
 
                 final EditText wordEditText = new EditText(getContext());
 
-                new androidx.appcompat.app.AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
+                new androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
                         .setTitle("Add Words")
                         .setView(wordEditText)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -155,7 +154,7 @@ public class WhatsAppWordDialogFragment extends androidx.fragment.app.DialogFrag
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.AppTheme_Slide);
         }
     }

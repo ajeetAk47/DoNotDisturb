@@ -14,7 +14,6 @@ import com.ak47.doNotDisturb.Service.AdLoadForegroundService;
 import com.ak47.doNotDisturb.Service.HelperForegroundService;
 
 public class AdLoadAndShowWorker extends Worker {
-    private String TAG = "Logging - AdLoadAndShowWorker";
 
     public AdLoadAndShowWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -24,6 +23,7 @@ public class AdLoadAndShowWorker extends Worker {
     @Override
     public Result doWork() {
 
+        String TAG = "Logging - AdLoadAndShowWorker";
         Log.e(TAG, "doWork: " + "called");
         if (isHelperServiceRunning()) {
             Intent adLoadForegroundServiceIntent = new Intent(getApplicationContext(), AdLoadForegroundService.class);
