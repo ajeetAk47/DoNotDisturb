@@ -25,7 +25,7 @@ public class RingtonePlayingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Uri ringtoneUri = Uri.parse(Objects.requireNonNull(intent.getExtras()).getString("ringtone-uri"));
-        Log.e(TAG, "Ringtone playing");
+        Log.d(TAG, "Ringtone playing");
         try {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;
@@ -34,7 +34,7 @@ public class RingtonePlayingService extends Service {
 //            ringtone.setVolume(audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
             ringtone.play();
         } catch (Exception e) {
-            Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+            Log.d(TAG, Objects.requireNonNull(e.getMessage()));
         }
 
         return START_NOT_STICKY;

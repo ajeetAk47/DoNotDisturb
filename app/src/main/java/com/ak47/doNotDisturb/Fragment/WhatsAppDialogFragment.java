@@ -97,7 +97,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
         String phoneNumber = nameList.get(position).getPhoneNumber();
         db.deleteContact(phoneNumber, TABLE_CONTACTS_WHATSAPP);
         nameList.remove(position);
-        Log.e(TAG, "Delete Contact " + phoneNumber);
+        Log.d(TAG, "Delete Contact " + phoneNumber);
         if (db.getContactsCount(TABLE_CONTACTS_WHATSAPP) == 0) {
             listView.setVisibility(View.GONE);
             noContact.setVisibility(View.VISIBLE);
@@ -172,7 +172,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
             int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             name = cursor.getString(nameIndex);
             phoneNo = cursor.getString(phoneIndex);
-            Log.e(TAG, "Got a result: " + name + " " + phoneNo);
+            Log.d(TAG, "Got a result: " + name + " " + phoneNo);
             insertContactInfo(name, phoneNo);
             cursor.close();
         } catch (Exception e) {
@@ -195,7 +195,7 @@ public class WhatsAppDialogFragment extends androidx.fragment.app.DialogFragment
             nameList.add(new Contact(name, number));
             contactListAdapter.notifyDataSetChanged();
         } else {
-            Log.e(TAG, "Invalid Format");
+            Log.d(TAG, "Invalid Format");
             new androidx.appcompat.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
                     .setTitle("Alert")
                     .setMessage("Contact number must have proper Country Code Otherwise You Will Not able to Add")

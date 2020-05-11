@@ -50,12 +50,11 @@ public class CustomNotificationListenerService extends NotificationListenerServi
                 String contactName = extras.getString("android.title");
                 String msg = Objects.requireNonNull(extras.getCharSequence("android.text")).toString();
 
-//            Log.e(TAG,"Package "+sbn.getPackageName());
-
+//            Log.d(TAG,"Package "+sbn.getPackageName());
 
                 if (checkNumber(contactName) || checkWord(msg)) {
-                    Log.e(TAG, "Contact Name - " + contactName);
-                    Log.e(TAG, "Msg - " + msg);
+//                    Log.d(TAG, "Contact Name - " + contactName);
+//                    Log.d(TAG, "Msg - " + msg);
                     playNotificationSound();
                 }
             }
@@ -99,7 +98,7 @@ public class CustomNotificationListenerService extends NotificationListenerServi
         DatabaseHandler db = new DatabaseHandler(context);
         List<Contact> contactList = db.getAllContacts("whatsappContacts");  // TABLE_CONTACTS_CALL is table name
         for (Contact contact : contactList) {
-            //   Log.e(TAG,contactList.getPhoneNumber()+ " "+ number);
+            //   Log.d(TAG,contactList.getPhoneNumber()+ " "+ number);
             if (contactName.contains(contact.getName())) {
                 return true;
             }
@@ -109,7 +108,7 @@ public class CustomNotificationListenerService extends NotificationListenerServi
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        Log.d(TAG, "Notification Removed");
+//        Log.d(TAG, "Notification Removed");
     }
 
     private int matchNotificationCode(StatusBarNotification sbn) {

@@ -19,7 +19,7 @@ public class StartHelperForegroundTileService extends TileService {
     public void onTileAdded() {
         super.onTileAdded();
         doNotDisturbTile = getQsTile();
-        Log.e(TAG, "onTileAdded: " + "called");
+        Log.d(TAG, "onTileAdded: " + "called");
         if (isHelperServiceRunning()) {
             doNotDisturbTile.setState(Tile.STATE_ACTIVE);
         } else {
@@ -31,12 +31,12 @@ public class StartHelperForegroundTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        Log.e(TAG, "onClick: " + "called");
+        Log.d(TAG, "onClick: " + "called");
         doNotDisturbTile = getQsTile();
         SharedPreferences sharedPreferences = getSharedPreferences("initial_setup", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Log.e(TAG, "onClick: " + getQsTile().getState());
+        Log.d(TAG, "onClick: " + getQsTile().getState());
 
         helperForegroundServiceIntent = new Intent(getApplicationContext(), HelperForegroundService.class);
 
@@ -53,7 +53,7 @@ public class StartHelperForegroundTileService extends TileService {
                 doNotDisturbTile.updateTile();
 
             } else {
-                Log.e(TAG, "Complete the initial setup first!");
+                Log.d(TAG, "Complete the initial setup first!");
             }
         }
         editor.apply();
@@ -68,7 +68,7 @@ public class StartHelperForegroundTileService extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        Log.e(TAG, "onStartListening: " + "called");
+        Log.d(TAG, "onStartListening: " + "called");
         doNotDisturbTile = getQsTile();
         if (isHelperServiceRunning()) {
             doNotDisturbTile.setState(Tile.STATE_ACTIVE);
@@ -81,7 +81,7 @@ public class StartHelperForegroundTileService extends TileService {
     @Override
     public void onStopListening() {
         super.onStopListening();
-        Log.e(TAG, "onStopListening: " + "called");
+        Log.d(TAG, "onStopListening: " + "called");
     }
 
     private boolean isHelperServiceRunning() {

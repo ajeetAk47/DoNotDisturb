@@ -83,7 +83,7 @@ public class HelperForegroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG, "onStartCommand: " + "service started " + startId);
+        Log.d(TAG, "onStartCommand: " + "service started " + startId);
 
         PeriodicWorkRequest periodicAdWork = new PeriodicWorkRequest.Builder(AdLoadAndShowWorker.class, 1, TimeUnit.HOURS, 20, TimeUnit.MINUTES).build();
         WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("periodicAdWorkName", ExistingPeriodicWorkPolicy.KEEP, periodicAdWork);
@@ -104,13 +104,13 @@ public class HelperForegroundService extends Service {
             //Silent  Mode
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
-        Log.e(TAG, "Change Mode - " + mode);
+        Log.d(TAG, "Change Mode - " + mode);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy: " + "called");
+        Log.d(TAG, "onDestroy: " + "called");
         try {
             mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             // mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);

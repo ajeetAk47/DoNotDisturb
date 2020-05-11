@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
 import com.ak47.doNotDisturb.R;
 import com.google.android.gms.ads.MobileAds;
 
@@ -18,6 +20,7 @@ public class App extends Application {
     String notificationChannelIdForAdsAndService = "3000";
     String notificationChannelNameForAdsAndService = "Support";
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate() {
         createNotificationChannelForForegroundService();
@@ -31,6 +34,7 @@ public class App extends Application {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannelForRingerModeReceiver() {
         NotificationChannel notificationChannel = new NotificationChannel(notificationChannelIdForRingerModeReceiver, notificationChannelNameForRingerModeReceiver, NotificationManager.IMPORTANCE_HIGH);
         notificationChannel.enableLights(true);

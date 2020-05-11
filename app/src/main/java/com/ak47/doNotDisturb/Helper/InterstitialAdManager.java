@@ -15,7 +15,7 @@ public class InterstitialAdManager {
     public static InterstitialAdManager getInstance() {
         if (interstitialAdManagerSingleton == null) {
             String TAG = "Logging - InterstitialAdManager";
-            Log.e(TAG, "getInstance: " + "instance is null...");
+            Log.d(TAG, "getInstance: " + "instance is null...");
             interstitialAdManagerSingleton = new InterstitialAdManager();
         }
         return interstitialAdManagerSingleton;

@@ -2,7 +2,6 @@ package com.ak47.doNotDisturb.Activities;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -138,9 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void basicChecking() {
 
-        NotificationManager notificationManager =
-                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
         if (!checkPermission()) {
             //If Not Granted
             requestPermission();
@@ -153,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeMobileAdsLoadAndShow() {
-        Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
         AdView bannerAdView = findViewById(R.id.bannerAdView);
         AdRequest bannerAdRequest = new AdRequest.Builder().build();
         bannerAdView.loadAd(bannerAdRequest);
-        Log.e(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
 
     }
 

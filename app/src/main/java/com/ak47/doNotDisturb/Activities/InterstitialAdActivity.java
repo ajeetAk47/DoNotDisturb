@@ -17,11 +17,11 @@ public class InterstitialAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interstitial_ad);
-        Log.e(TAG, "onCreate: " + "activity started");
+        Log.d(TAG, "onCreate: " + "activity started");
         InterstitialAdManager interstitialAdManager = InterstitialAdManager.getInstance();
         InterstitialAd interstitialAd = interstitialAdManager.getInterstitialAd();
         if (interstitialAd == null) {
-            Log.e(TAG, "onCreate: " + "ad is null");
+            Log.d(TAG, "onCreate: " + "ad is null");
             finish();
         }
 

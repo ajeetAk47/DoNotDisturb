@@ -59,7 +59,7 @@ public class RingerModeStateChangeReceiver extends BroadcastReceiver {
         }
 
         if (!currentMode.equals(mode) && ringMode) {
-            Log.e(TAG, "Mode Not Equal " + ringMode);
+            Log.d(TAG, "Mode Not Equal " + ringMode);
 
             Intent mainActivityIntent = new Intent(context, MainActivity.class);
             PendingIntent mainActivityPendingIntent = PendingIntent.getActivity(

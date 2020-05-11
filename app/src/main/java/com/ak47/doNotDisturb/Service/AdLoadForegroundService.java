@@ -32,7 +32,7 @@ public class AdLoadForegroundService extends Service {
 
     @Override
     public void onCreate() {
-        Log.e(TAG, "onCreate: " + "called");
+        Log.d(TAG, "onCreate: " + "called");
         Notification foregroundServiceNotification = new NotificationCompat.Builder(getApplicationContext(),
                 notificationChannelIdForAdsAndService)
                 .setSmallIcon(R.drawable.ic_check)
@@ -59,7 +59,7 @@ public class AdLoadForegroundService extends Service {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                Log.e(TAG, "onAdLoaded: " + "ad loaded");
+                Log.d(TAG, "onAdLoaded: " + "ad loaded");
 
                 InterstitialAdManager interstitialAdManager = InterstitialAdManager.getInstance();
                 interstitialAdManager.setInterstitialAd(interstitialAd);
@@ -83,7 +83,7 @@ public class AdLoadForegroundService extends Service {
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                Log.e(TAG, "onAdFailedToLoad: " + "ad failed to load, code = " + i);
+                Log.d(TAG, "onAdFailedToLoad: " + "ad failed to load, code = " + i);
                 stopSelf();
             }
         });
@@ -94,6 +94,6 @@ public class AdLoadForegroundService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy: " + "called");
+        Log.d(TAG, "onDestroy: " + "called");
     }
 }

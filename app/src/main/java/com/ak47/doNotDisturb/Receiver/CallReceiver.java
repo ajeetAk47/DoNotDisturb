@@ -87,14 +87,14 @@ public class CallReceiver extends BroadcastReceiver {
     }
 
     private boolean checkExistenceInDataBase(String number, Context context) {
-        //     Log.e(TAG,"checkExistence");
+        //     Log.d(TAG,"check Existence");
         DatabaseHandler db = new DatabaseHandler(context);
         if (number.contains(" ")) {
             number = number.replaceAll(" ", "");
         }
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);  // TABLE_CONTACTS_CALL is table name
         for (Contact contactList : contacts) {
-            //   Log.e(TAG,contactList.getPhoneNumber()+ " "+ number);
+            //   Log.d(TAG,contactList.getPhoneNumber()+ " "+ number);
             if (contactList.getPhoneNumber().equals(number)) {
                 return true;
             }

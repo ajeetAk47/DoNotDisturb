@@ -24,12 +24,12 @@ public class AdLoadAndShowWorker extends Worker {
     public Result doWork() {
 
         String TAG = "Logging - AdLoadAndShowWorker";
-        Log.e(TAG, "doWork: " + "called");
+        Log.d(TAG, "doWork: " + "called");
         if (isHelperServiceRunning()) {
             Intent adLoadForegroundServiceIntent = new Intent(getApplicationContext(), AdLoadForegroundService.class);
             getApplicationContext().startService(adLoadForegroundServiceIntent);
         } else {
-            Log.e(TAG, "doWork: " + "helper service not running, job cancelled!");
+            Log.d(TAG, "doWork: " + "helper service not running, job cancelled!");
             WorkManager.getInstance(getApplicationContext()).cancelWorkById(this.getId());
         }
 
