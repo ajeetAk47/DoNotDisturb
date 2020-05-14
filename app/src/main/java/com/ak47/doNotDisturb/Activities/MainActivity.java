@@ -87,10 +87,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onCheckChanged: " + current);
                 editor = sharedPreferences.edit();
                 if (current == IconSwitch.Checked.RIGHT) {
-                    editor.putBoolean("foregroundServiceStateUserPreference", true);
-                    statusInfoActiveTextView.setVisibility(View.VISIBLE);
-                    statusInfoInactiveTextView.setVisibility(View.INVISIBLE);
-                    ContextCompat.startForegroundService(getBaseContext(), helperForegroundServiceIntent);
+
+                    if (isNotificationServiceEnabled()) {
+                        editor.putBoolean("foregroundServiceStateUserPreference", true);
+                        statusInfoActiveTextView.setVisibility(View.VISIBLE);
+                        statusInfoInactiveTextView.setVisibility(View.INVISIBLE);
+                        ContextCompat.startForegroundService(getBaseContext(), helperForegroundServiceIntent);
+                    } else {
+                        android.app.AlertDialog enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
+                        enableNotificationListenerAlertDialog.show();
+                    }
                 } else if (current == IconSwitch.Checked.LEFT) {
                     editor.putBoolean("foregroundServiceStateUserPreference", false);
                     statusInfoActiveTextView.setVisibility(View.INVISIBLE);
