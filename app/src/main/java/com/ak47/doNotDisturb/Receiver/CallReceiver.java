@@ -30,6 +30,7 @@ public class CallReceiver extends BroadcastReceiver {
         String stateStr = Objects.requireNonNull(intent.getExtras()).getString(TelephonyManager.EXTRA_STATE);
         String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         int state = 0;
+        assert stateStr != null;
         if (stateStr.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
             state = TelephonyManager.CALL_STATE_IDLE;
         } else if (stateStr.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
@@ -79,6 +80,7 @@ public class CallReceiver extends BroadcastReceiver {
             } else if (mode.equals("Silent")) {
                 //Silent  Mode
 
+                assert myAudioManager != null;
                 myAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                 editor.putBoolean("Ringing_mode", true).apply();
             }
@@ -89,12 +91,10 @@ public class CallReceiver extends BroadcastReceiver {
     private boolean checkExistenceInDataBase(String number, Context context) {
         //     Log.d(TAG,"check Existence");
         DatabaseHandler db = new DatabaseHandler(context);
-        if (number.contains(" ")) {
-            number = number.replaceAll(" ", "");
-        }
+        number = number.replaceAll(" ", "");
         List<Contact> contacts = db.getAllContacts(TABLE_CONTACTS_CALL);  // TABLE_CONTACTS_CALL is table name
         for (Contact contactList : contacts) {
-            //   Log.d(TAG,contactList.getPhoneNumber()+ " "+ number);
+            Log.d(TAG, contactList.getPhoneNumber() + " " + number);
             if (contactList.getPhoneNumber().equals(number)) {
                 return true;
             }
