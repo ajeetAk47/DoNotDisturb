@@ -134,7 +134,7 @@ public class CustomNotificationListenerService extends NotificationListenerServi
         listen the notifications
      */
     private static final class ApplicationPackageNames {
-        public static final String WHATSAPP_PACK_NAME = "com.whatsapp";
+        static final String WHATSAPP_PACK_NAME = "com.whatsapp";
 //        public static final String FACEBOOK_PACK_NAME = "com.facebook.katana";
 //        public static final String FACEBOOK_MESSENGER_PACK_NAME = "com.facebook.orca";
 //        public static final String INSTAGRAM_PACK_NAME = "com.instagram.android";
@@ -145,9 +145,9 @@ public class CustomNotificationListenerService extends NotificationListenerServi
         the notifications, to decide whether we should do something or not
      */
     public static final class InterceptedNotificationCode {
-        public static final int WHATSAPP_CODE = 1;
+        static final int WHATSAPP_CODE = 1;
         //        public static final int FACEBOOK_CODE = 2;
 //        public static final int INSTAGRAM_CODE = 3;
-        public static final int OTHER_NOTIFICATIONS_CODE = 4; // We ignore all notification with code == 4
+        static final int OTHER_NOTIFICATIONS_CODE = 4; // We ignore all notification with code == 4
     }
 }

@@ -155,11 +155,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeMobileAdsLoadAndShow() {
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
-        AdView bannerAdView = findViewById(R.id.bannerAdView);
-        AdRequest bannerAdRequest = new AdRequest.Builder().build();
-        bannerAdView.loadAd(bannerAdRequest);
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
+
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: 1 " + "the ad was loading.");
+        AdView bannerAdView1 = findViewById(R.id.bannerAdView1);
+        AdRequest bannerAdRequest1 = new AdRequest.Builder().build();
+        bannerAdView1.loadAd(bannerAdRequest1);
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: 1" + "the ad was loaded");
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: 2" + "the ad was loading.");
+        AdView bannerAdView2 = findViewById(R.id.bannerAdView2);
+        AdRequest bannerAdRequest2 = new AdRequest.Builder().build();
+        bannerAdView2.loadAd(bannerAdRequest2);
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: 2" + "the ad was loaded");
 
     }
 

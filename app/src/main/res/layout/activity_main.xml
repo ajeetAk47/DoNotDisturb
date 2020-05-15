@@ -58,16 +58,6 @@
         app:isw_thumb_color_left="@color/customRed"
         app:isw_thumb_color_right="@color/customGreen" />
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/bannerAdView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/button"
-        android:layout_marginBottom="50dp"
-        android:layout_centerHorizontal="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/ad_banner_id_1" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
@@ -80,6 +70,25 @@
         android:text="@string/SettingButton"
         android:textColor="@color/colorAccent"
         tools:ignore="RelativeOverlap" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/bannerAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bannerAdView2"
+        android:layout_alignParentStart="true"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/ad_banner_id_1" />
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/bannerAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button"
+        android:layout_alignParentStart="true"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/ad_banner_id_2" />
 
     <ImageView
         android:id="@+id/warning_msg"
