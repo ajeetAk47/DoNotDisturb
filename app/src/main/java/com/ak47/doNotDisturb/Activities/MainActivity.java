@@ -23,8 +23,11 @@ import androidx.core.content.ContextCompat;
 
 import com.ak47.doNotDisturb.R;
 import com.ak47.doNotDisturb.Service.HelperForegroundService;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.button.MaterialButton;
 import com.polyak.iconswitch.IconSwitch;
 
@@ -156,16 +159,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeMobileAdsLoadAndShow() {
 
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: 1 " + "the ad was loading.");
-        AdView bannerAdView1 = findViewById(R.id.bannerAdView1);
-        AdRequest bannerAdRequest1 = new AdRequest.Builder().build();
-        bannerAdView1.loadAd(bannerAdRequest1);
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: 1" + "the ad was loaded");
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: 2" + "the ad was loading.");
-        AdView bannerAdView2 = findViewById(R.id.bannerAdView2);
-        AdRequest bannerAdRequest2 = new AdRequest.Builder().build();
-        bannerAdView2.loadAd(bannerAdRequest2);
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: 2" + "the ad was loaded");
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
+        AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9120224455161858/7937487858")
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().build();
+
+                        TemplateView template = findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(unifiedNativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAds(new AdRequest.Builder().build(), 3);
+        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
 
     }
 
