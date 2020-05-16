@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Don\'t bother</string>
     <string name="developer_name">Developed By Ajeet Yadav</string>
-    <string name="version">v1.4</string>
+    <string name="version">v1.5</string>
     <string name="ad_interstitial_id_1">ca-app-pub-9120224455161858/3876123809</string>
 
     <string name="admob_app_id">ca-app-pub-9120224455161858~3117769423</string>
