@@ -158,25 +158,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeMobileAdsLoadAndShow() {
+        try {
+            Log.d(TAG, "initializeMobileAdsLoadAndShow: the ad was loading.");
+            AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9120224455161858/7937487858")
+                    .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                        @Override
+                        public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                            NativeTemplateStyle styles = new
+                                    NativeTemplateStyle.Builder().build();
 
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loading.");
-        AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9120224455161858/7937487858")
-                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                    @Override
-                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                        NativeTemplateStyle styles = new
-                                NativeTemplateStyle.Builder().build();
+                            TemplateView template = findViewById(R.id.my_template);
+                            template.setStyles(styles);
+                            template.setNativeAd(unifiedNativeAd);
 
-                        TemplateView template = findViewById(R.id.my_template);
-                        template.setStyles(styles);
-                        template.setNativeAd(unifiedNativeAd);
+                        }
+                    })
+                    .build();
 
-                    }
-                })
-                .build();
+            adLoader.loadAds(new AdRequest.Builder().build(), 3);
+            Log.d(TAG, "initializeMobileAdsLoadAndShow: the ad was loaded");
 
-        adLoader.loadAds(new AdRequest.Builder().build(), 3);
-        Log.d(TAG, "initializeMobileAdsLoadAndShow: " + "the ad was loaded");
+        } catch (Exception e) {
+            Log.e(TAG, "initializeMobileAdsLoadAndShow: Error");
+        }
+
 
     }
 

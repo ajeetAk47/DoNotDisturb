@@ -47,16 +47,19 @@ public class CustomNotificationListenerService extends NotificationListenerServi
             int notificationCode = matchNotificationCode(sbn);
             if (notificationCode != InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE) {
                 Bundle extras = sbn.getNotification().extras;
-                String contactName = extras.getString("android.title");
-//                String msg = (extras.getCharSequence("android.text")).toString();
-                String msg = extras.getString("android.text");
+                try {
+                    String contactName = extras.getString("android.title");
+                    String msg = (Objects.requireNonNull(extras.getCharSequence("android.text"))).toString();
 
 //            Log.d(TAG,"Package "+sbn.getPackageName());
 
-                if (checkNumber(contactName) || checkWord(msg)) {
-                    Log.d(TAG, "Contact Name - " + contactName);
-                    Log.d(TAG, "Msg - " + msg);
-                    playNotificationSound();
+                    if (checkNumber(contactName) || checkWord(msg)) {
+                        Log.d(TAG, "Contact Name - " + contactName);
+                        Log.d(TAG, "Msg - " + msg);
+                        playNotificationSound();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Custom Notification Failed ");
                 }
             }
         }
