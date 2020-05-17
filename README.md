@@ -13,6 +13,9 @@ Set Particular Contacts Calls in Ring Mode when Phone is in Silent  or Do Not  D
 </a>
 
 
+<img src="https://github.com/ajeetAk47/DoNotDisturb/blob/master/Robo_test.png" width="740" height="800">
+
+
 
 
 MIT License
